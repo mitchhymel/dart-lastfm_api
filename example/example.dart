@@ -8,6 +8,6 @@ var client = new LastFmApi(API_KEY, SHARED_SECRET, 'lastfm_dart_example',
 
 main() async {
 
-  var result = await client.artistGetSimilar('In Aviate');
+  var result = await client.artistGetTopTracks('Saosin');
 
 }

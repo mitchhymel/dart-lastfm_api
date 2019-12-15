@@ -59,17 +59,76 @@ class LastFmApi {
   }
 
 
-  artistGetSimilar(String artist, 
+  Future<LastFmResponse> artistGetSimilar(String artist, 
     {int limit=100, bool autoCorrect=false, String mbid}) {
-      return makeGetRequest({
+      
+      var params = {
         'method': LastFmEndpoints.ARTIST_GETSIMILAR.toString(),
         'artist': artist,
-        'mbid': mbid,
         'limit': limit.toString(),
         'autocorrect': autoCorrect.toString()
-      });
+      };
+
+      LastFmHelpers.addValueIfNotNull(params, 'mbid', mbid);
+
+      return makeGetRequest(params);
   }
 
+  Future<LastFmResponse> artistGetInfo(String artist,
+    {String mbid, String lang, bool autoCorrect=false, String userName}) {
+      
+      var params = {
+        'method': LastFmEndpoints.ARTIST_GETINFO.toString(),
+        'artist': artist,
+        'autocorrect': autoCorrect.toString(),
+      };
+      
+      LastFmHelpers.addValueIfNotNull(params, 'mbid', mbid);
+      LastFmHelpers.addValueIfNotNull(params, 'username', userName);
+      LastFmHelpers.addValueIfNotNull(params, 'lang', lang);
 
+      return makeGetRequest(params);
+  }
+
+  Future<LastFmResponse> artistSearch(String artist,
+    {int limit=30, int page=0}) {
+      
+      var params = {
+        'method': LastFmEndpoints.ARTIST_SEARCH.toString(),
+        'artist': artist,
+        'limit': limit.toString(),
+        'page': page.toString(),
+      };
+
+      return makeGetRequest(params);
+  }
+
+  Future<LastFmResponse> artistGetTopTags(String artist,
+    {String mbid, bool autoCorrect=false}) {
+      var params = {
+        'method': LastFmEndpoints.ARTIST_GETTOPTAGS.toString(),
+        'artist': artist,
+        'autocorrect': autoCorrect.toString()
+      };
+
+      LastFmHelpers.addValueIfNotNull(params, 'mbid', mbid);
+
+      return makeGetRequest(params);
+  }
   
+   Future<LastFmResponse> artistGetTopTracks(String artist,
+    {String mbid, bool autoCorrect=false, int page=0, int limit=50}) {
+      var params = {
+        'method': LastFmEndpoints.ARTIST_GETTOPTRACKS.toString(),
+        'artist': artist,
+        'autocorrect': autoCorrect.toString(),
+        'page': page.toString(),
+        'limit': limit.toString()
+      };
+
+      LastFmHelpers.addValueIfNotNull(params, 'mbid', mbid);
+
+      return makeGetRequest(params);
+  }
+
 }

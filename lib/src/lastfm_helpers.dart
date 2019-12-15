@@ -9,4 +9,10 @@ class LastFmHelpers {
     JsonEncoder encoder = new JsonEncoder.withIndent('  ');
     return encoder.convert(map);
   }
+
+  static void addValueIfNotNull(Map map, String key, String value) {
+    if (value != null) {
+      map.putIfAbsent(key, () => value);
+    }
+  }
 }
