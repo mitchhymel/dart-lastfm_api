@@ -6,6 +6,7 @@ import 'package:lastfmapi/src/enums/enums.dart';
 
 import 'package:http/http.dart';
 import 'package:lastfmapi/src/lastfm_response.dart';
+import 'package:lastfmapi/src/models/similar_artist.dart';
 
 class LastFmApi {
   final String apiKey;
@@ -59,8 +60,8 @@ class LastFmApi {
   }
 
 
-  Future<LastFmResponse> artistGetSimilar(String artist, 
-    {int limit=100, bool autoCorrect=false, String mbid}) {
+  Future<List<SimilarArtist>> artistGetSimilar(String artist, 
+    {int limit=100, bool autoCorrect=false, String mbid}) async {
       
       var params = {
         'method': LastFmEndpoints.ARTIST_GETSIMILAR.toString(),
@@ -71,7 +72,8 @@ class LastFmApi {
 
       LastFmHelpers.addValueIfNotNull(params, 'mbid', mbid);
 
-      return makeGetRequest(params);
+      var response = await makeGetRequest(params);
+      return SimilarArtist.fromLastFmResponse(response);
   }
 
   Future<LastFmResponse> artistGetInfo(String artist,

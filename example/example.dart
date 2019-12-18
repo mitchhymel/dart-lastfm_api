@@ -3,11 +3,11 @@ import 'package:lastfmapi/lastfm_api.dart';
 
 import 'secret.dart';
 
-var client = new LastFmApi(API_KEY, SHARED_SECRET, 'lastfm_dart_example', 
-  logger: LastFmConsoleLogger());
+var logger = new LastFmConsoleLogger();
+var client = new LastFmApi(API_KEY, SHARED_SECRET, 'lastfm_dart_example');
 
 main() async {
 
-  var result = await client.artistGetTopTracks('Saosin');
-
+  var result = await client.artistGetSimilar('Saosin');
+  print(LastFmHelpers.getPrettyStringFromMap(result[0].toMap()));
 }

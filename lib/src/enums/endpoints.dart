@@ -1,4 +1,3 @@
-import 'package:lastfmapi/src/enums/enums.dart';
 
 class LastFmEndpoints {
   static const LastFmEndpoints ARTIST_GETSIMILAR = const LastFmEndpoints._private('artist.getSimilar');

@@ -7,7 +7,7 @@ class LastFmResponse {
 
   final int status;
   final LastFmError error;
-  final dynamic data;
+  final Map data;
 
   LastFmResponse(this.status, this.error, this.data);
 
