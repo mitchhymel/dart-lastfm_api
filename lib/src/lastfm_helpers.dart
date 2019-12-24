@@ -16,13 +16,21 @@ class LastFmHelpers {
     }
   }
 
-  static bool parseBoolFromString(String val) {
-    return int.parse(val) == 1;
+  static bool parseBoolFromStringOrBool(Map map, String key) {
+    if (map[key] is bool) {
+      return map[key];
+    }
+
+    return int.parse(map[key]) == 1;
   }
 
   static double parseDoubleIfContainsKey(Map map, String key) {
     if (!map.containsKey(key)) {
       return -1;
+    }
+
+    if (map[key] is double) {
+      return map[key];
     }
 
     return double.parse(map[key]);
@@ -31,6 +39,10 @@ class LastFmHelpers {
   static int parseIntIfContainsKey(Map map, String key) {
     if (!map.containsKey(key)) {
       return -1;
+    }
+
+    if (map[key] is int) {
+      return map[key];
     }
 
     return int.parse(map[key]);

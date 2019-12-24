@@ -20,8 +20,8 @@ class ArtistInfo extends BaseModel {
     mbid = map[MBID],
     url = map[URL],
     images = ArtistImage.listFromMapList(map[IMAGE]),
-    streamable = LastFmHelpers.parseBoolFromString(map[STREAMABLE]),
-    onTour = LastFmHelpers.parseBoolFromString(map[ONTOUR]),
+    streamable = LastFmHelpers.parseBoolFromStringOrBool(map, STREAMABLE),
+    onTour = LastFmHelpers.parseBoolFromStringOrBool(map, ONTOUR),
     stats = ArtistStats.fromMap(map[STATS]),
     similar = SimilarArtist.listFromMapList(map[SIMILAR][ARTIST]),
     tags = Tag.listFromMapList(map[TAGS][TAG]),
@@ -38,7 +38,7 @@ class ArtistInfo extends BaseModel {
     STATS: stats.toMap(),
     SIMILAR: BaseModel.toMapList(similar),
     TAGS: BaseModel.toMapList(tags),
-    BIO: bio,
+    BIO: bio.toMap(),
   };
 
   static ArtistInfo fromLastFmResponse(LastFmResponse response) {

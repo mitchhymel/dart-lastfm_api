@@ -8,10 +8,9 @@ class ArtistStats extends BaseModel{
   ArtistStats({this.listeners, this.playCount, this.userPlayCount});
   
   ArtistStats.fromMap(Map map) :
-    listeners = int.parse(map[LISTENERS]),
-    playCount = int.parse(map[PLAYCOUNT]),
-    userPlayCount = map.containsKey(USERPLAYCOUNT) ? 
-      int.parse(map[USERPLAYCOUNT]) : -1;
+    listeners = LastFmHelpers.parseIntIfContainsKey(map, LISTENERS),
+    playCount = LastFmHelpers.parseIntIfContainsKey(map, PLAYCOUNT),
+    userPlayCount = LastFmHelpers.parseIntIfContainsKey(map, USERPLAYCOUNT);
 
   @override
   Map toMap() => {
