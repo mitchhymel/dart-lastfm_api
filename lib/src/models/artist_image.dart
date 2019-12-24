@@ -7,13 +7,13 @@ class ArtistImage extends BaseModel {
   ArtistImage({this.url, this.size});
 
   ArtistImage.fromMap(Map map) :
-    url = map['#text'],
-    size = map['size'];
+    url = map[TEXT],
+    size = map[SIZE];
 
   @override
   Map toMap() => {
-    'url': url,
-    'size': size
+    URL: url,
+    SIZE: size
   };
 
   static List<ArtistImage> listFromMapList(List<dynamic> maps) =>

@@ -12,21 +12,21 @@ class SimilarArtist extends BaseModel {
     this.streamable, this.images});
 
   SimilarArtist.fromMap(Map map) :
-    name = map['name'],
-    mbid = map['mbid'],
-    match = double.parse(map['match']),
-    url = map['url'],
-    streamable = int.parse(map['streamable']) == 1,
-    images = ArtistImage.listFromMapList(map['image']);
+    name = map[NAME],
+    mbid = map[MBID],
+    match = LastFmHelpers.parseDoubleIfContainsKey(map, MATCH),
+    url = map[URL],
+    streamable = LastFmHelpers.parseBoolIfContainsKey(map, STREAMABLE),
+    images = ArtistImage.listFromMapList(map[IMAGE]);
 
   @override
   Map toMap() => {
-    'name': name,
-    'mbid': mbid,
-    'match': match,
-    'url': url,
-    'streamable': streamable,
-    'image': images.map((i) => i.toMap()).toList()
+    NAME: name,
+    MBID: mbid,
+    MATCH: match,
+    URL: url,
+    STREAMABLE: streamable,
+    IMAGE: BaseModel.toMapList(images)
   };
 
   static List<SimilarArtist> listFromMapList(List<dynamic> maps) =>
@@ -38,8 +38,8 @@ class SimilarArtist extends BaseModel {
         return [];
     }
 
-    Map simArtist = response.data['similarartists'];
-    List<dynamic> maps = simArtist['artist'];
+    Map simArtist = response.data[SIMILARARTISTS];
+    List<dynamic> maps = simArtist[ARTIST];
     return listFromMapList(maps);
   }
 }

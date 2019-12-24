@@ -60,36 +60,48 @@ class LastFmApi {
   }
 
 
-  Future<List<SimilarArtist>> artistGetSimilar(String artist, 
-    {int limit=100, bool autoCorrect=false, String mbid}) async {
+  Future<LastFmResponse> artistGetSimilar(String artist, 
+    {int limit=100, bool autoCorrect=false, String mbid}) {
       
       var params = {
         'method': LastFmEndpoints.ARTIST_GETSIMILAR.toString(),
-        'artist': artist,
+        ARTIST: artist,
         'limit': limit.toString(),
         'autocorrect': autoCorrect.toString()
       };
 
-      LastFmHelpers.addValueIfNotNull(params, 'mbid', mbid);
+      LastFmHelpers.addValueIfNotNull(params, MBID, mbid);
 
-      var response = await makeGetRequest(params);
-      return SimilarArtist.fromLastFmResponse(response);
+      return makeGetRequest(params);
   }
 
-  Future<ArtistInfo> artistGetInfo(String artist,
+  Future<List<SimilarArtist>> artistGetSimilarTyped(String artist,
+    {int limit=100, bool autoCorrect=false, String mbid}) async {
+    var response = await artistGetSimilar(artist,
+      limit: limit, autoCorrect: autoCorrect, mbid: mbid);
+    return SimilarArtist.fromLastFmResponse(response);
+  }
+
+  Future<LastFmResponse> artistGetInfo(String artist,
     {String mbid, String lang, bool autoCorrect=false, String userName}) async {
       
       var params = {
         'method': LastFmEndpoints.ARTIST_GETINFO.toString(),
-        'artist': artist,
+        ARTIST: artist,
         'autocorrect': autoCorrect.toString(),
       };
       
-      LastFmHelpers.addValueIfNotNull(params, 'mbid', mbid);
+      LastFmHelpers.addValueIfNotNull(params, MBID, mbid);
       LastFmHelpers.addValueIfNotNull(params, 'username', userName);
       LastFmHelpers.addValueIfNotNull(params, 'lang', lang);
 
-      var response = await makeGetRequest(params);
+      return makeGetRequest(params);
+  }
+
+  Future<ArtistInfo> artistGetInfoTyped(String artist,
+    {String mbid, String lang, bool autoCorrect=false, String userName}) async {
+      var response = await artistGetInfo(artist,
+        mbid: mbid, lang: lang, autoCorrect: autoCorrect, userName: userName);
       return ArtistInfo.fromLastFmResponse(response);
   }
 
@@ -98,7 +110,7 @@ class LastFmApi {
       
       var params = {
         'method': LastFmEndpoints.ARTIST_SEARCH.toString(),
-        'artist': artist,
+        ARTIST: artist,
         'limit': limit.toString(),
         'page': page.toString(),
       };
@@ -110,11 +122,11 @@ class LastFmApi {
     {String mbid, bool autoCorrect=false}) {
       var params = {
         'method': LastFmEndpoints.ARTIST_GETTOPTAGS.toString(),
-        'artist': artist,
+        ARTIST: artist,
         'autocorrect': autoCorrect.toString()
       };
 
-      LastFmHelpers.addValueIfNotNull(params, 'mbid', mbid);
+      LastFmHelpers.addValueIfNotNull(params, MBID, mbid);
 
       return makeGetRequest(params);
   }
@@ -123,13 +135,13 @@ class LastFmApi {
     {String mbid, bool autoCorrect=false, int page=0, int limit=50}) {
       var params = {
         'method': LastFmEndpoints.ARTIST_GETTOPTRACKS.toString(),
-        'artist': artist,
+        ARTIST: artist,
         'autocorrect': autoCorrect.toString(),
         'page': page.toString(),
         'limit': limit.toString()
       };
 
-      LastFmHelpers.addValueIfNotNull(params, 'mbid', mbid);
+      LastFmHelpers.addValueIfNotNull(params, MBID, mbid);
 
       return makeGetRequest(params);
   }

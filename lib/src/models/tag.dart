@@ -7,15 +7,15 @@ class Tag extends BaseModel {
   Tag(this.name, this.url);
 
   Tag.fromMap(Map map) :
-    name = map['name'],
-    url = map['url'];
+    name = map[NAME],
+    url = map[URL];
 
   @override
   Map toMap() => {
-    'name': name,
-    'url': url
+    NAME: name,
+    URL: url
   };
 
-  static List<Tag> listFromMapList(List<Map> maps) => 
+  static List<Tag> listFromMapList(List<dynamic> maps) => 
     maps.map((m) => Tag.fromMap(m)).toList();
 }

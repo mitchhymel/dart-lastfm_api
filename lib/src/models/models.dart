@@ -11,3 +11,4 @@ part 'artist_bio.dart';
 part 'artist_stats.dart';
 part 'tag.dart';
 part 'base.dart';
+part 'map_keys.dart';

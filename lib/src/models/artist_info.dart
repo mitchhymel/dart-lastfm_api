@@ -16,29 +16,29 @@ class ArtistInfo extends BaseModel {
     this.onTour, this.stats, this.similar, this.tags, this.bio});
 
   ArtistInfo.fromMap(Map map) :
-    name = map['name'],
-    mbid = map['mbid'],
-    url = map['url'],
-    images = ArtistImage.listFromMapList(map['image']),
-    streamable = LastFmHelpers.parseBoolFromString(map['streamable']),
-    onTour = LastFmHelpers.parseBoolFromString(map['ontour']),
-    stats = ArtistStats.fromMap(map['stats']),
-    similar = SimilarArtist.listFromMapList(map['similar']),
-    tags = Tag.listFromMapList(map['tags']['tag']),
-    bio = ArtistBio.fromMap(map['bio']);
+    name = map[NAME],
+    mbid = map[MBID],
+    url = map[URL],
+    images = ArtistImage.listFromMapList(map[IMAGE]),
+    streamable = LastFmHelpers.parseBoolFromString(map[STREAMABLE]),
+    onTour = LastFmHelpers.parseBoolFromString(map[ONTOUR]),
+    stats = ArtistStats.fromMap(map[STATS]),
+    similar = SimilarArtist.listFromMapList(map[SIMILAR][ARTIST]),
+    tags = Tag.listFromMapList(map[TAGS][TAG]),
+    bio = ArtistBio.fromMap(map[BIO]);
   
   @override
   Map toMap() => {
-    'name': name,
-    'mbid': mbid,
-    'url': url,
-    'images': images,
-    'streamable': streamable,
-    'onTour': onTour,
-    'stats': stats,
-    'similar': similar,
-    'tags': tags,
-    'bio': bio,
+    NAME: name,
+    MBID: mbid,
+    URL: url,
+    IMAGE: BaseModel.toMapList(images),
+    STREAMABLE: streamable,
+    ONTOUR: onTour,
+    STATS: stats.toMap(),
+    SIMILAR: BaseModel.toMapList(similar),
+    TAGS: BaseModel.toMapList(tags),
+    BIO: bio,
   };
 
   static ArtistInfo fromLastFmResponse(LastFmResponse response) {
@@ -47,7 +47,7 @@ class ArtistInfo extends BaseModel {
         return null;
     }
 
-    return ArtistInfo.fromMap(response.data['artist']);
+    return ArtistInfo.fromMap(response.data[ARTIST]);
   }
 }
 

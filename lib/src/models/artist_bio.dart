@@ -9,16 +9,16 @@ class ArtistBio extends BaseModel {
     this.summary, this.content});
 
   ArtistBio.fromMap(Map map) : 
-    link = map['links']['link']['href'],
-    published =  map['published'],
-    summary = map['summary'],
-    content = map['content'];
+    link = map[LINKS][LINK][HREF],
+    published =  map[PUBLISHED],
+    summary = map[SUMMARY],
+    content = map[CONTENT];
 
   @override
   Map toMap() => {
-    'link': link,
-    'published': published,
-    'summary': summary,
-    'content': content
+    LINK: link,
+    PUBLISHED: published,
+    SUMMARY: summary,
+    CONTENT: content
   };
 }
