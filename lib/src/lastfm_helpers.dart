@@ -15,4 +15,8 @@ class LastFmHelpers {
       map.putIfAbsent(key, () => value);
     }
   }
+
+  static bool parseBoolFromString(String val) {
+    return int.parse(val) == 1;
+  }
 }
