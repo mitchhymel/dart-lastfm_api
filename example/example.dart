@@ -12,7 +12,7 @@ main() async {
   await client.loginWithSessionKey(SESSION_KEY);
   var res = await client.track.getTags(
     artist: 'Hollowealth',
-    trackName: 'The Distance Affair',
+    track: 'The Distance Affair',
   );
 
   print(res);
@@ -24,11 +24,11 @@ artistGetInfoTest() async {
   // var result = await client.artistGetInfo('Saosin', userName: 'mythichelm');
   // print(LastFmHelpers.getPrettyStringFromMap(result.data));
 
-  var typed = await client.artist.getInfoTyped('Saosin', userName: 'mythichelm');
+  var typed = await client.artist.getInfoTyped(artist: 'Saosin', userName: 'mythichelm');
   print(LastFmHelpers.getPrettyStringFromMap(typed.toMap()));
 }
 
 similarArtistTest() async {
-  var result = await client.artist.getSimilarTyped('Saosin');
+  var result = await client.artist.getSimilarTyped(artist: 'Saosin');
   print(LastFmHelpers.getPrettyStringFromMap(result[0].toMap()));
 }

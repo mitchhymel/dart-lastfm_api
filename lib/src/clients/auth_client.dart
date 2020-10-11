@@ -6,9 +6,9 @@ class AuthClient extends BaseClient {
   
   Future<UserSession> getMobileSession(String userName, String password) async {
     var params = {
+      METHOD: 'auth.getMobileSession',
       PASSWORD: password,
       USERNAME: userName,
-      METHOD: 'auth.getMobileSession'
     };
 
     var response = await makeRequest(params, sign: true);

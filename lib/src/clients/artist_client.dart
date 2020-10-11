@@ -6,9 +6,9 @@ class ArtistClient extends BaseClient {
   Future<LastFmResponse> addTags(String artist, List<String> tags) async {
 
     var params = {
-      'method': 'artist.addTag',
-      'artist': artist,
-      'tags': tags.join(','),
+      METHOD: 'artist.addTags',
+      ARTIST: artist,
+      TAGS: tags.join(','),
     };
 
     return makeRequest(params, authRequired: true);
@@ -24,120 +24,121 @@ class ArtistClient extends BaseClient {
     return makeRequest(params);
   }
 
-  Future<LastFmResponse> getInfo(String artist, {
+  Future<LastFmResponse> getInfo({String artist,
     String mbid, String lang, bool autoCorrect=false, String userName
   }) async {
       
     var params = {
       METHOD: 'artist.getInfo',
-      ARTIST: artist,
       AUTOCORRECT: LastFmHelpers.boolToIntString(autoCorrect),
     };
     
     LastFmHelpers.addValueIfNotNull(params, MBID, mbid);
+    LastFmHelpers.addValueIfNotNull(params, ARTIST, artist);
     LastFmHelpers.addValueIfNotNull(params, USERNAME, userName);
     LastFmHelpers.addValueIfNotNull(params, LANG, lang);
 
     return makeRequest(params);
   }
 
-  Future<ArtistInfo> getInfoTyped(String artist, {
+  Future<ArtistInfo> getInfoTyped({String artist,
     String mbid, String lang, bool autoCorrect=false, String userName
   }) async {
-    var response = await getInfo(artist,
+    var response = await getInfo(artist: artist,
       mbid: mbid, lang: lang, autoCorrect: autoCorrect, userName: userName);
     return ArtistInfo.fromLastFmResponse(response);
   }
 
-  Future<LastFmResponse> getSimilar(String artist, {
+  Future<LastFmResponse> getSimilar({String artist,
     int limit=100, bool autoCorrect=false, String mbid
   }) async {
       
     var params = {
       METHOD: 'artist.getSimilar',
-      ARTIST: artist,
       LIMIT: limit.toString(),
       AUTOCORRECT: LastFmHelpers.boolToIntString(autoCorrect),
     };
 
     LastFmHelpers.addValueIfNotNull(params, MBID, mbid);
+    LastFmHelpers.addValueIfNotNull(params, ARTIST, artist);
 
     return makeRequest(params);
   }
 
-  Future<List<SimilarArtist>> getSimilarTyped(String artist, {
+  Future<List<SimilarArtist>> getSimilarTyped({String artist, 
     int limit=100, bool autoCorrect=false, String mbid
   }) async {
-    var response = await getSimilar(artist,
+    var response = await getSimilar(artist: artist,
       limit: limit, autoCorrect: autoCorrect, mbid: mbid);
     return SimilarArtist.fromLastFmResponse(response);
   }
 
-  Future<LastFmResponse> getTags(String artist, {
+  Future<LastFmResponse> getTags({String artist,
      String mbid, String user, bool autoCorrect=false,
   }) async {
     var params = {
-      'method': 'artist.getTopAlbums',
-      'artist': artist,
-      'autocorrect': LastFmHelpers.boolToIntString(autoCorrect),
+      METHOD: 'artist.getTags',
+      AUTOCORRECT: LastFmHelpers.boolToIntString(autoCorrect),
     };
 
-    LastFmHelpers.addValueIfNotNull(params, 'user', user);
+    LastFmHelpers.addValueIfNotNull(params, USER, user);
+    LastFmHelpers.addValueIfNotNull(params, MBID, mbid);
+    LastFmHelpers.addValueIfNotNull(params, ARTIST, artist);
 
     return makeRequest(params, authRequired: user != null);
   }
 
-  Future<LastFmResponse> getTopAlbums(String artist, {
+  Future<LastFmResponse> getTopAlbums({String artist,
      String mbid, bool autoCorrect=false, int page=0, int limit=50
   }) async {
     var params = {
-      'method': 'artist.getTopAlbums',
-      'artist': artist,
-      'autocorrect': LastFmHelpers.boolToIntString(autoCorrect),
-      'page': page.toString(),
-      'limit': limit.toString()
+      METHOD: 'artist.getTopAlbums',
+      AUTOCORRECT: LastFmHelpers.boolToIntString(autoCorrect),
+      PAGE: page.toString(),
+      LIMIT: limit.toString()
     };
 
     LastFmHelpers.addValueIfNotNull(params, MBID, mbid);
+    LastFmHelpers.addValueIfNotNull(params, ARTIST, artist);
 
     return makeRequest(params);
   }
 
-  Future<LastFmResponse> getTopTags(String artist, {
+  Future<LastFmResponse> getTopTags({String artist,
     String mbid, bool autoCorrect=false
   }) async {
     var params = {
-      'method': 'artist.getTopTags',
-      'artist': artist,
-      'autocorrect': LastFmHelpers.boolToIntString(autoCorrect)
+      METHOD: 'artist.getTopTags',
+      AUTOCORRECT: LastFmHelpers.boolToIntString(autoCorrect),
     };
 
     LastFmHelpers.addValueIfNotNull(params, MBID, mbid);
+    LastFmHelpers.addValueIfNotNull(params, ARTIST, artist);
 
     return makeRequest(params);
   }
   
-  Future<LastFmResponse> getTopTracks(String artist, {
+  Future<LastFmResponse> getTopTracks({String artist,
      String mbid, bool autoCorrect=false, int page=0, int limit=50
   }) async {
     var params = {
-      'method': 'artist.getTopTracks',
-      'artist': artist,
-      'autocorrect': LastFmHelpers.boolToIntString(autoCorrect),
-      'page': page.toString(),
-      'limit': limit.toString()
+      METHOD: 'artist.getTopTracks',
+      AUTOCORRECT: LastFmHelpers.boolToIntString(autoCorrect),
+      LIMIT: limit.toString(),
+      PAGE: page.toString(),
     };
 
     LastFmHelpers.addValueIfNotNull(params, MBID, mbid);
+    LastFmHelpers.addValueIfNotNull(params, ARTIST, artist);
 
     return makeRequest(params);
   }
 
   Future<LastFmResponse> removeTag(String artist, String tag) async {
     var params = {
-      'method': 'artist.removeTag',
-      'artist': artist,
-      'tag': tag,
+      METHOD: 'artist.removeTag',
+      ARTIST: artist,
+      TAG: tag,
     };
 
     return makeRequest(params, authRequired: true);
@@ -148,10 +149,10 @@ class ArtistClient extends BaseClient {
   }) async {
       
     var params = {
-      'method': 'artist.search',
-      'artist': artist,
-      'limit': limit.toString(),
-      'page': page.toString(),
+      METHOD: 'artist.search',
+      ARTIST: artist,
+      LIMIT: limit.toString(),
+      PAGE: page.toString(),
     };
 
     return makeRequest(params);

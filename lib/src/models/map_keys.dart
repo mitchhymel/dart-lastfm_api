@@ -1,4 +1,3 @@
-part of models;
 
 const STREAMABLE = 'streamable';
 const LISTENERS = 'listeners';
@@ -38,3 +37,12 @@ const PAGE = 'page';
 const SESSION = 'session';
 const KEY = 'key';
 const SUBSCRIBER = 'subscriber';
+const PERIOD = 'period';
+const TO = 'to';
+const FROM = 'from';
+const RECENT_TRACKS = 'recenttracks';
+const TAGGING_TYPE = 'taggingtype';
+const EXTENDED = 'extended';
+const ALBUM = 'album';
+const ALBUM_ARTIST = 'albumArtist';
+const TRACK_NUMBER = 'trackNumber';

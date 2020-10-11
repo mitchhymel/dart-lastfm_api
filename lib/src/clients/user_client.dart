@@ -7,11 +7,11 @@ class UserClient extends BaseClient {
     bool recenttracks=false, int limit=50, int page=0 
   }) async {
     var params = {
-      'method': 'user.getfriends',
-      'user': 'user',
-      'recenttracks': LastFmHelpers.boolToIntString(recenttracks),
-      'limit': limit.toString(),
-      'page': page.toString(),
+      METHOD: 'user.getfriends',
+      USER: user,
+      RECENT_TRACKS: LastFmHelpers.boolToIntString(recenttracks),
+      LIMIT: limit.toString(),
+      PAGE: page.toString(),
     };
 
     return makeRequest(params);
@@ -19,8 +19,8 @@ class UserClient extends BaseClient {
 
   Future<LastFmResponse> getInfo(String user) async {
     var params = {
-      'method': 'user.getInfo',
-      'user': 'user',
+      METHOD: 'user.getInfo',
+      USER: user,
     };
 
     return makeRequest(params);
@@ -30,10 +30,10 @@ class UserClient extends BaseClient {
     int limit=50, int page=0
   }) async {
     var params = {
-      'method': 'user.getLovedTracks',
-      'user': 'user',
-      'limit': limit.toString(),
-      'page': page.toString(),
+      METHOD: 'user.getLovedTracks',
+      USER: user,
+      LIMIT: limit.toString(),
+      PAGE: page.toString(),
     };
 
     return makeRequest(params);
@@ -44,12 +44,12 @@ class UserClient extends BaseClient {
     int limit=50, int page=0
   }) async {
     var params = {
-      'method': 'user.getPersonalTags',
-      'user': 'user',
-      'tag': tag,
-      'taggingtype': taggingType,
-      'limit': limit.toString(),
-      'page': page.toString(),
+      METHOD: 'user.getPersonalTags',
+      USER: user,
+      TAG: tag,
+      TAGGING_TYPE: taggingType,
+      LIMIT: limit.toString(),
+      PAGE: page.toString(),
     };
 
     return makeRequest(params);
@@ -59,15 +59,15 @@ class UserClient extends BaseClient {
     int limit=50, int page=0, int from, int to, bool extended=false,
   }) async {
     var params = {
-      'method': 'user.getRecentTracks',
-      'user': 'user',
-      'limit': limit.toString(),
-      'page': page.toString(),
-      'extended': LastFmHelpers.boolToIntString(extended)
+      METHOD: 'user.getRecentTracks',
+      USER: user,
+      LIMIT: limit.toString(),
+      PAGE: page.toString(),
+      EXTENDED: LastFmHelpers.boolToIntString(extended)
     };
 
-    LastFmHelpers.addValueIfNotDefault(params, 'to', to);
-    LastFmHelpers.addValueIfNotDefault(params, 'from', from);
+    LastFmHelpers.addValueIfNotDefault(params, TO, to);
+    LastFmHelpers.addValueIfNotDefault(params, FROM, from);
 
     return makeRequest(params);
   }
@@ -82,13 +82,13 @@ class UserClient extends BaseClient {
     int limit=50, int page=0, String period
   }) async {
     var params = {
-      'method': 'user.getTopAlbums',
-      'user': 'user',
-      'limit': limit.toString(),
-      'page': page.toString(),
+      METHOD: 'user.getTopAlbums',
+      USER: user,
+      LIMIT: limit.toString(),
+      PAGE: page.toString(),
     };
 
-    LastFmHelpers.addValueIfNotNull(params, 'period', period);
+    LastFmHelpers.addValueIfNotNull(params, PERIOD, period);
 
     return makeRequest(params);
   }
@@ -103,13 +103,13 @@ class UserClient extends BaseClient {
     int limit=50, int page=0, String period
   }) async {
     var params = {
-      'method': 'user.getTopArtists',
-      'user': 'user',
-      'limit': limit.toString(),
-      'page': page.toString(),
+      METHOD: 'user.getTopArtists',
+      USER: user,
+      LIMIT: limit.toString(),
+      PAGE: page.toString(),
     };
 
-    LastFmHelpers.addValueIfNotNull(params, 'period', period);
+    LastFmHelpers.addValueIfNotNull(params, PERIOD, period);
 
     return makeRequest(params);
   }
@@ -122,9 +122,9 @@ class UserClient extends BaseClient {
     int limit=50, 
   }) async {
     var params = {
-      'method': 'user.getTopTags',
-      'user': 'user',
-      'limit': limit.toString(),
+      METHOD: 'user.getTopTags',
+      USER: user,
+      LIMIT: limit.toString(),
     };
 
     return makeRequest(params);
@@ -140,13 +140,13 @@ class UserClient extends BaseClient {
     int limit=50, int page=0, String period
   }) async {
     var params = {
-      'method': 'user.getTopTracks',
-      'user': 'user',
-      'limit': limit.toString(),
-      'page': page.toString(),
+      METHOD: 'user.getTopTracks',
+      USER: user,
+      LIMIT: limit.toString(),
+      PAGE: page.toString(),
     };
 
-    LastFmHelpers.addValueIfNotNull(params, 'period', period);
+    LastFmHelpers.addValueIfNotNull(params, PERIOD, period);
 
     return makeRequest(params);
   }
@@ -160,12 +160,12 @@ class UserClient extends BaseClient {
     int from, int to
   }) async {
     var params = {
-      'method': 'user.getWeeklyAlbumChart',
-      'user': 'user',
+      METHOD: 'user.getWeeklyAlbumChart',
+      USER: user,
     };
 
-    LastFmHelpers.addValueIfNotDefault(params, 'to', to);
-    LastFmHelpers.addValueIfNotDefault(params, 'from', from);
+    LastFmHelpers.addValueIfNotDefault(params, TO, to);
+    LastFmHelpers.addValueIfNotDefault(params, FROM, from);
 
     return makeRequest(params);
   }
@@ -179,20 +179,20 @@ class UserClient extends BaseClient {
     int from, int to
   }) async {
     var params = {
-      'method': 'user.getWeeklyArtistChart',
-      'user': 'user',
+      METHOD: 'user.getWeeklyArtistChart',
+      USER: user,
     };
 
-    LastFmHelpers.addValueIfNotDefault(params, 'to', to);
-    LastFmHelpers.addValueIfNotDefault(params, 'from', from);
+    LastFmHelpers.addValueIfNotDefault(params, TO, to);
+    LastFmHelpers.addValueIfNotDefault(params, FROM, from);
 
     return makeRequest(params);
   }
 
   Future<LastFmResponse> getWeeklyChartList(String user) async {
     var params = {
-      'method': 'user.getWeeklyChartList',
-      'user': 'user',
+      METHOD: 'user.getWeeklyChartList',
+      USER: user,
     };
 
     return makeRequest(params);
@@ -207,12 +207,12 @@ class UserClient extends BaseClient {
     int from, int to
   }) async {
     var params = {
-      'method': 'user.getWeeklyTrackChart',
-      'user': 'user',
+      METHOD: 'user.getWeeklyTrackChart',
+      USER: user,
     };
 
-    LastFmHelpers.addValueIfNotDefault(params, 'to', to);
-    LastFmHelpers.addValueIfNotDefault(params, 'from', from);
+    LastFmHelpers.addValueIfNotDefault(params, TO, to);
+    LastFmHelpers.addValueIfNotDefault(params, FROM, from);
 
     return makeRequest(params);
   }
