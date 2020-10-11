@@ -16,6 +16,12 @@ class LastFmHelpers {
     }
   }
 
+  static void addValueIfNotDefault(Map map, String key, int value, {int def=0}) {
+    if (value != def) {
+      map.putIfAbsent(key, () => value.toString());
+    }
+  }
+
   static bool parseBoolFromStringOrBool(Map map, String key) {
     if (map[key] is bool) {
       return map[key];
