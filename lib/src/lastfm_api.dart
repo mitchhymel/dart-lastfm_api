@@ -131,7 +131,6 @@ class LastFmApi {
     var keysInAlphabeticalOrder = params.keys.toList();
     keysInAlphabeticalOrder.sort((a, b) => a.compareTo(b));
     String toSign = keysInAlphabeticalOrder.map((e) => '${e}${params[e]}').join();
-    print(toSign);
     String readtyToHash = '${toSign}${sharedSecret}';
 
     String hashed = md5.convert(utf8.encode(readtyToHash)).toString();

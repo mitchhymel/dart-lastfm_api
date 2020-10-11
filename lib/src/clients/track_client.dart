@@ -28,7 +28,7 @@ class TrackClient extends BaseClient {
     return makeRequest(params);
   }
 
-  Future<LastFmResponse> getInfo(String artist, String track, {
+  Future<LastFmResponse> getInfo({String artist, String track,
     String mbid, bool autoCorrect=false, String userName
   }) async {
       
@@ -45,7 +45,7 @@ class TrackClient extends BaseClient {
     return makeRequest(params);
   }
 
-  Future<LastFmResponse> getSimilar(String artist, String track, {
+  Future<LastFmResponse> getSimilar({String artist, String track, 
     String mbid, bool autoCorrect=false, int limit=50,
   }) async {
       

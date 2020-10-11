@@ -1,6 +1,7 @@
 
 import 'dart:convert';
 
+import 'package:lastfm/lastfm_api.dart';
 import 'package:lastfm/src/enums/enums.dart';
 
 class LastFmResponse {
@@ -25,5 +26,9 @@ class LastFmResponse {
 
   String toJson() {
     return json.encode(this.toMap());
+  }
+
+  String toPrettyJson() {
+    return LastFmHelpers.getPrettyStringFromMap(this.toMap());
   }
 }

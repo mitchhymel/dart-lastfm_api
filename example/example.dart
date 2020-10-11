@@ -11,11 +11,11 @@ main() async {
 
   await client.loginWithSessionKey(SESSION_KEY);
   var res = await client.track.getTags(
-    artist: 'Hollowealth',
+    artist: 'Hollowealth', 
     track: 'The Distance Affair',
   );
 
-  print(res);
+  print(res.toPrettyJson());
 
   //print(LastFmHelpers.getPrettyStringFromMap(res.toMap()));
 }
