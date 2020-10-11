@@ -1,13 +1,11 @@
-name: lastfmapi
-description: A new Flutter package project.
+name: lastfm
+description: A dart package for interacting with LastFm API.
 version: 0.0.1
-author:
-homepage:
+author: mitchhymel
 
 environment:
   sdk: ">=2.1.0 <3.0.0"
 
 dependencies:
   http:
-
-dev_dependencies:
+  crypto:

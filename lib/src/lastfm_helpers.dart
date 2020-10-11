@@ -51,4 +51,7 @@ class LastFmHelpers {
   static bool parseBoolIfContainsKey(Map map, String key) {
     return parseIntIfContainsKey(map, key) == 1;
   }
+
+  static int boolToInt(bool a) => a ? 1 : 0;
+  static String boolToIntString(bool a) => boolToInt(a).toString();
 }

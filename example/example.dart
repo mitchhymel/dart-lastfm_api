@@ -1,5 +1,5 @@
 
-import 'package:lastfmapi/lastfm_api.dart';
+import 'package:lastfm/lastfm_api.dart';
 
 import 'secret.dart';
 
@@ -9,8 +9,13 @@ var client = new LastFmApi(API_KEY, SHARED_SECRET, 'lastfm_dart_example');
 
 main() async {
 
-  // await similarArtistTest();
-  await artistGetInfoTest();
+  await client.loginWithSessionKey(SESSION_KEY);
+  var res = await client.trackGetTags(
+    artist: 'Hollowealth',
+    trackName: 'The Distance Affair',
+  );
+
+  //print(LastFmHelpers.getPrettyStringFromMap(res.toMap()));
 }
 
 artistGetInfoTest() async {

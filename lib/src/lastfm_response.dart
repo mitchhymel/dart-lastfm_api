@@ -1,7 +1,7 @@
 
 import 'dart:convert';
 
-import 'package:lastfmapi/src/enums/enums.dart';
+import 'package:lastfm/src/enums/enums.dart';
 
 class LastFmResponse {
 

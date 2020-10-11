@@ -1,18 +1,19 @@
 
-import 'package:lastfmapi/src/lastfm_helpers.dart';
-import 'package:lastfmapi/src/lastfm_response.dart';
+import 'package:lastfm/src/lastfm_helpers.dart';
+import 'package:lastfm/src/lastfm_response.dart';
 
 abstract class LastFmLogger {
-  void logRequest(String uri, Map<String, String> headers);
+  void logRequest(String uri, Map<String, String> headers, String body);
   void logResponse(LastFmResponse response);
 }
 
 class LastFmConsoleLogger implements LastFmLogger {
   @override
-  void logRequest(String uri, Map<String, String> headers) {
+  void logRequest(String uri, Map<String, String> headers, String body) {
     Map map = {
       'uri': uri,
       'headers': headers,
+      'body': body
     };
 
     print('LastFm Request:');
