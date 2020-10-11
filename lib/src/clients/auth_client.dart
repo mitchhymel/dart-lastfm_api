@@ -15,4 +15,21 @@ class AuthClient extends BaseClient {
 
     return UserSession.fromLastFmResponse(response);
   }
+
+  Future<LastFmResponse> getSession(String token) async {
+    var params = {
+      METHOD: 'auth.getSession',
+      TOKEN: token,
+    };
+
+    return makeRequest(params, sign: true);
+  }
+
+  Future<LastFmResponse> getToken() async {
+    var params = {
+      METHOD: 'auth.gettoken',
+    };
+
+    return makeRequest(params, sign: true);
+  }
 }

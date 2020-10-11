@@ -46,3 +46,6 @@ const EXTENDED = 'extended';
 const ALBUM = 'album';
 const ALBUM_ARTIST = 'albumArtist';
 const TRACK_NUMBER = 'trackNumber';
+const LOCATION = 'location';
+const COUNTRY = 'country';
+const TOKEN = 'token';
