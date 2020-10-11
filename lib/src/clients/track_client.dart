@@ -128,7 +128,7 @@ class TrackClient extends BaseClient {
   }
 
   Future<LastFmResponse> search(String track, {
-    String artist, int limit=30, int page=0
+    String artist, int limit=30, int page=1
   }) async {
       
     var params = {

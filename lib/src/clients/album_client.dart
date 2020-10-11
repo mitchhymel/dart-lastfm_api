@@ -83,7 +83,7 @@ class AlbumClient extends BaseClient {
   }
 
   Future<LastFmResponse> search(String album, {
-    int limit=30, int page=0
+    int limit=30, int page=1
   }) async {
       
     var params = {

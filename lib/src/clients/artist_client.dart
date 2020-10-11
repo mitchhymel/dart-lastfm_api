@@ -89,7 +89,7 @@ class ArtistClient extends BaseClient {
   }
 
   Future<LastFmResponse> getTopAlbums({String artist,
-     String mbid, bool autoCorrect=false, int page=0, int limit=50
+     String mbid, bool autoCorrect=false, int page=1, int limit=50
   }) async {
     var params = {
       METHOD: 'artist.getTopAlbums',
@@ -119,7 +119,7 @@ class ArtistClient extends BaseClient {
   }
   
   Future<LastFmResponse> getTopTracks({String artist,
-     String mbid, bool autoCorrect=false, int page=0, int limit=50
+     String mbid, bool autoCorrect=false, int page=1, int limit=50
   }) async {
     var params = {
       METHOD: 'artist.getTopTracks',
@@ -145,7 +145,7 @@ class ArtistClient extends BaseClient {
   }
 
   Future<LastFmResponse> search(String artist, {
-    int limit=30, int page=0
+    int limit=30, int page=1
   }) async {
       
     var params = {

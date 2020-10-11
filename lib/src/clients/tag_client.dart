@@ -26,7 +26,7 @@ class TagClient extends BaseClient {
   }
 
   Future<LastFmResponse> getTopAlbums(String tag, {
-    int limit=50, int page=0,
+    int limit=50, int page=1,
   }) async {
       
     var params = {
@@ -40,7 +40,7 @@ class TagClient extends BaseClient {
   }
 
   Future<LastFmResponse> getTopArtists(String tag, {
-    int limit=50, int page=0,
+    int limit=50, int page=1,
   }) async {
       
     var params = {
@@ -63,7 +63,7 @@ class TagClient extends BaseClient {
   }
 
   Future<LastFmResponse> getTopTracks(String tag, {
-    int limit=50, int page=0,
+    int limit=50, int page=1,
   }) async {
       
     var params = {

@@ -4,7 +4,7 @@ class ChartClient extends BaseClient {
   ChartClient(RequestMethod requestMethod) : super(requestMethod);
 
   Future<LastFmResponse> getTopArtists({
-    int limit=50, int page=0
+    int limit=50, int page=1
   }) async {
       
     var params = {
@@ -17,7 +17,7 @@ class ChartClient extends BaseClient {
   }
 
   Future<LastFmResponse> getTopTags({
-    int limit=50, int page=0
+    int limit=50, int page=1
   }) async {
       
     var params = {
@@ -30,7 +30,7 @@ class ChartClient extends BaseClient {
   }
 
   Future<LastFmResponse> getTopTracks({
-    int limit=50, int page=0
+    int limit=50, int page=1
   }) async {
       
     var params = {

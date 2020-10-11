@@ -10,9 +10,8 @@ var client = new LastFmApi(API_KEY, SHARED_SECRET, 'lastfm_dart_example');
 main() async {
 
   await client.loginWithSessionKey(SESSION_KEY);
-  var res = await client.track.getTags(
-    artist: 'Hollowealth', 
-    track: 'The Distance Affair',
+  var res = await client.user.getLovedTracks(
+    'mythichelm',
   );
 
   print(res.toPrettyJson());

@@ -5,7 +5,7 @@ class GeoClient extends BaseClient {
 
 
   Future<LastFmResponse> getTopArtists(String country, {
-    int limit=50, int page=0
+    int limit=50, int page=1
   }) async {
       
     var params = {
@@ -19,7 +19,7 @@ class GeoClient extends BaseClient {
   }
 
   Future<LastFmResponse> getTopTracks(String country, {
-    int limit=50, int page=0, String location
+    int limit=50, int page=1, String location
   }) async {
       
     var params = {

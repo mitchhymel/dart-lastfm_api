@@ -4,7 +4,7 @@ class UserClient extends BaseClient {
   UserClient(RequestMethod makeRequest) : super(makeRequest);
 
   Future<LastFmResponse> getFriends(String user, {
-    bool recenttracks=false, int limit=50, int page=0 
+    bool recenttracks=false, int limit=50, int page=1 
   }) async {
     var params = {
       METHOD: 'user.getfriends',
@@ -27,7 +27,7 @@ class UserClient extends BaseClient {
   }
 
   Future<LastFmResponse> getLovedTracks(String user, {
-    int limit=50, int page=0
+    int limit=50, int page=1
   }) async {
     var params = {
       METHOD: 'user.getLovedTracks',
@@ -41,7 +41,7 @@ class UserClient extends BaseClient {
 
   Future<LastFmResponse> getPersonalTags(String user, String tag, 
     String taggingType, { 
-    int limit=50, int page=0
+    int limit=50, int page=1
   }) async {
     var params = {
       METHOD: 'user.getPersonalTags',
@@ -56,7 +56,7 @@ class UserClient extends BaseClient {
   }
 
   Future<LastFmResponse> getRecentTracks(String user, { 
-    int limit=50, int page=0, int from, int to, bool extended=false,
+    int limit=50, int page=1, int from, int to, bool extended=false,
   }) async {
     var params = {
       METHOD: 'user.getRecentTracks',
@@ -79,7 +79,7 @@ class UserClient extends BaseClient {
    * page (Optional) : The page number to fetch. Defaults to first page.
    */
   Future<LastFmResponse> getTopAlbums(String user, { 
-    int limit=50, int page=0, String period
+    int limit=50, int page=1, String period
   }) async {
     var params = {
       METHOD: 'user.getTopAlbums',
@@ -100,7 +100,7 @@ class UserClient extends BaseClient {
    * page (Optional) : The page number to fetch. Defaults to first page.
    */
   Future<LastFmResponse> getTopArtists(String user, { 
-    int limit=50, int page=0, String period
+    int limit=50, int page=1, String period
   }) async {
     var params = {
       METHOD: 'user.getTopArtists',
@@ -137,7 +137,7 @@ class UserClient extends BaseClient {
    * page (Optional) : The page number to fetch. Defaults to first page.
    */
   Future<LastFmResponse> getTopTracks(String user, { 
-    int limit=50, int page=0, String period
+    int limit=50, int page=1, String period
   }) async {
     var params = {
       METHOD: 'user.getTopTracks',
