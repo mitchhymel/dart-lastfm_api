@@ -3,6 +3,11 @@ part of clients;
 class TrackClient extends BaseClient {
   TrackClient(RequestMethod requestMethod) : super(requestMethod);
 
+
+  /**
+   * Response is an empty map. Returns success even if you are trying
+   * to add tags that the track already has
+   */
   Future<LastFmResponse> addTags(String artist, String track, 
     List<String> tags
   ) async {
@@ -103,6 +108,10 @@ class TrackClient extends BaseClient {
     return makeRequest(params, authRequired: true);
   }
 
+  /**
+   * Response is an empty map. API returns success even if no tag was removed,
+   * i.e. in the case where you try to remove a tag that the track does not have
+   */
   Future<LastFmResponse> removeTag(String artist, String track, 
     String tag
   ) async {

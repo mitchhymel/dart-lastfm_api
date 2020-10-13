@@ -4,17 +4,12 @@ import 'package:lastfm/lastfm_api.dart';
 import 'secret.dart';
 
 var logger = new LastFmConsoleLogger();
-var client = new LastFmApi(API_KEY, SHARED_SECRET, 'lastfm_dart_example');
+var client = new LastFmApi(API_KEY, SHARED_SECRET, 'lastfm_dart_example', logger: logger);
 
 
 main() async {
 
   await client.loginWithSessionKey(SESSION_KEY);
-  var res = await client.user.getLovedTracks(
-    'mythichelm',
-  );
-
-  print(res.toPrettyJson());
 
   //print(LastFmHelpers.getPrettyStringFromMap(res.toMap()));
 }

@@ -14,3 +14,4 @@ part 'tag.dart';
 part 'base.dart';
 part 'auth_token.dart';
 part 'user_session.dart';
+part 'track_search_result.dart';
