@@ -12,6 +12,8 @@ class LastFmResponse {
 
   LastFmResponse(this.status, this.error, this.data);
 
+  bool isSuccess() => status == 200 && error == null && data != null;
+
   Map toMap() {
     return {
       'status': status,

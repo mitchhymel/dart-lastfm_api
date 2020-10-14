@@ -6,7 +6,7 @@ class TrackSearchResult {
   String url;
   String streamable;
   String listeners;
-  List<Image> image;
+  List<LastFmImage> image;
   String mbid;
 
   TrackSearchResult(
@@ -25,9 +25,9 @@ class TrackSearchResult {
     streamable = json['streamable'];
     listeners = json['listeners'];
     if (json['image'] != null) {
-      image = new List<Image>();
+      image = new List<LastFmImage>();
       json['image'].forEach((v) {
-        image.add(new Image.fromJson(v));
+        image.add(new LastFmImage.fromJson(v));
       });
     }
     mbid = json['mbid'];
@@ -46,15 +46,25 @@ class TrackSearchResult {
     data['mbid'] = this.mbid;
     return data;
   }
+
+  static List<TrackSearchResult> fromLastFmResponse(LastFmResponse response) {
+    List<TrackSearchResult> tracks = [];
+    List maps = response.data['results']['trackmatches']['track'];
+    maps.forEach((element) {
+      tracks.add(TrackSearchResult.fromJson(element));
+     });
+
+    return tracks;
+  }
 }
 
-class Image {
+class LastFmImage {
   String text;
   String size;
 
-  Image({this.text, this.size});
+  LastFmImage({this.text, this.size});
 
-  Image.fromJson(Map<String, dynamic> json) {
+  LastFmImage.fromJson(Map<String, dynamic> json) {
     text = json['#text'];
     size = json['size'];
   }
