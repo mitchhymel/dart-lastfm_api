@@ -37,7 +37,7 @@ class ArtistInfo extends BaseModel {
     ONTOUR: onTour,
     STATS: stats.toMap(),
     SIMILAR: BaseModel.toMapList(similar),
-    TAGS: BaseModel.toMapList(tags),
+    TAGS: tags,
     BIO: bio.toMap(),
   };
 

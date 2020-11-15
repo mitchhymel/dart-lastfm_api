@@ -16,3 +16,4 @@ part 'auth_token.dart';
 part 'user_session.dart';
 part 'track_search_result.dart';
 part 'recent_tracks_result.dart';
+part 'album.dart';

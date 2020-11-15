@@ -36,6 +36,10 @@ class TrackClient extends BaseClient {
   Future<LastFmResponse> getInfo({String artist, String track,
     String mbid, bool autoCorrect=false, String userName
   }) async {
+
+    if (userName != null) {
+      throw new UnimplementedError('This is not implemented because for some reason we get an empty response when username is supplied');
+    }
       
     var params = {
       METHOD: 'track.getInfo',
@@ -128,7 +132,7 @@ class TrackClient extends BaseClient {
 
   Future<LastFmResponse> scrobble() async {
 
-    throw new Exception('Not yet implemented');
+    throw new UnimplementedError('Not yet implemented');
     // var params = {
     //   METHOD: 'track.scrobble',
     // };
@@ -166,18 +170,19 @@ class TrackClient extends BaseClient {
     String album, String mbid, int duration=0, String albumArtist,
     int trackNumber=0,
   }) async {
-    var params = {
-      METHOD: 'track.updateNowPlaying',
-    };
+    throw new UnimplementedError('Not yet implemented');
+    // var params = {
+    //   METHOD: 'track.updateNowPlaying',
+    // };
 
-    LastFmHelpers.addValueIfNotNull(params, MBID, mbid);
-    LastFmHelpers.addValueIfNotNull(params, ARTIST, artist);
-    LastFmHelpers.addValueIfNotNull(params, TRACK, track);
-    LastFmHelpers.addValueIfNotNull(params, ALBUM, album);
-    LastFmHelpers.addValueIfNotNull(params, ALBUM_ARTIST, albumArtist);
-    LastFmHelpers.addValueIfNotDefault(params, DURATION, duration);
-    LastFmHelpers.addValueIfNotDefault(params, TRACK_NUMBER, trackNumber);
+    // LastFmHelpers.addValueIfNotNull(params, MBID, mbid);
+    // LastFmHelpers.addValueIfNotNull(params, ARTIST, artist);
+    // LastFmHelpers.addValueIfNotNull(params, TRACK, track);
+    // LastFmHelpers.addValueIfNotNull(params, ALBUM, album);
+    // LastFmHelpers.addValueIfNotNull(params, ALBUM_ARTIST, albumArtist);
+    // LastFmHelpers.addValueIfNotDefault(params, DURATION, duration);
+    // LastFmHelpers.addValueIfNotDefault(params, TRACK_NUMBER, trackNumber);
 
-    return makeRequest(params, authRequired: true);
+    // return makeRequest(params, authRequired: true);
   }
 }

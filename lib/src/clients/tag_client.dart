@@ -17,12 +17,13 @@ class TagClient extends BaseClient {
 
   Future<LastFmResponse> getSimilar(String tag) async {
       
-    var params = {
-      METHOD: 'tag.getSimilar',
-      TAG: tag,
-    };
+      throw new UnimplementedError('Not yet implemented');
+    // var params = {
+    //   METHOD: 'tag.getSimilar',
+    //   TAG: tag,
+    // };
 
-    return makeRequest(params);
+    // return makeRequest(params);
   }
 
   Future<LastFmResponse> getTopAlbums(String tag, {
@@ -59,7 +60,7 @@ class TagClient extends BaseClient {
       METHOD: 'tag.getTopTags',
     };
 
-    return makeRequest(params);
+    return makeRequest(params, isGet: true);
   }
 
   Future<LastFmResponse> getTopTracks(String tag, {

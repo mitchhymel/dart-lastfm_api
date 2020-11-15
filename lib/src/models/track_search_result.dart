@@ -75,4 +75,10 @@ class LastFmImage {
     data['size'] = this.size;
     return data;
   }
+
+  static List<LastFmImage> fromJsonList(List<Map> maps) {
+    List<LastFmImage> list = [];
+    maps.forEach((x) => list.add(LastFmImage.fromJson(x)));
+    return list;
+  }
 }

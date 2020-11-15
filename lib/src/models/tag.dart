@@ -1,21 +1,39 @@
 part of models;
 
-class Tag extends BaseModel {
-  final String name;
-  final String url;
+class Tag {
+  String name;
+  String count;
+  String url;
 
-  Tag(this.name, this.url);
-
-  Tag.fromMap(Map map) :
-    name = map[NAME],
-    url = map[URL];
+  Tag({this.name, this.count, this.url});
 
   @override
-  Map toMap() => {
-    NAME: name,
-    URL: url
-  };
+  String toString() => jsonEncode(toJson());
 
-  static List<Tag> listFromMapList(List<dynamic> maps) => 
-    maps.map((m) => Tag.fromMap(m)).toList();
+  Tag.fromJson(Map<String, dynamic> json) {
+    name = json['name'];
+    count = json['count'];
+    url = json['url'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['name'] = this.name;
+    data['count'] = this.count;
+    data['url'] = this.url;
+    return data;
+  }
+
+  static List<Tag> listFromMapList(List<dynamic> maps) =>
+      maps.map((m) => Tag.fromJson(m)).toList();
+
+  static List<Tag> fromLastFmResponse(LastFmResponse response) {
+    List<Tag> tags = [];
+    List maps = response.data['toptags']['tag'];
+    maps.forEach((element) {
+      tags.add(Tag.fromJson(element));
+    });
+
+    return tags;
+  }
 }

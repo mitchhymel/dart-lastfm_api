@@ -9,6 +9,7 @@ class RecentTracksResult {
   String url;
   String name;
   List<LastFmImage> image;
+  bool get nowPlaying => attr != null && attr.nowplaying == true;
 
   RecentTracksResult(
       {this.artist,
@@ -89,12 +90,12 @@ class Artist {
 }
 
 class Attr {
-  String nowplaying;
+  bool nowplaying;
 
   Attr({this.nowplaying});
 
   Attr.fromJson(Map<String, dynamic> json) {
-    nowplaying = json['nowplaying'];
+    nowplaying = json['nowplaying'].toString().toLowerCase() == 'true';
   }
 
   Map<String, dynamic> toJson() {

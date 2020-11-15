@@ -69,9 +69,13 @@ class LastFmApi {
   }
 
   Future<LastFmResponse> makeRequest(Map<String,String> params, 
-    bool sign, bool authRequired) async {
+    bool sign, bool authRequired, bool isGet) async {
     
     params.putIfAbsent('api_key', () => apiKey);
+
+    if (useJson) {
+      params.putIfAbsent(_formatStr, () => _jsonStr);
+    }
     
     if (authRequired) {
       if (sessionKey == null) {
@@ -80,7 +84,7 @@ class LastFmApi {
       params.putIfAbsent('sk', () => sessionKey);
     }
 
-    var uri = new Uri.https(AUTHORITY, PATH);
+    var uri = new Uri.https(AUTHORITY, PATH, isGet ? params : null);
 
     var headers = {
       'User-Agent': userAgent,
@@ -90,10 +94,12 @@ class LastFmApi {
     var body = _getParamsAsBody(params, sign: sign, authRequired: authRequired);
 
     if (this.logger != null) {
-      logger.logRequest(uri.toString(), headers, body);
+      logger.logRequest(uri.toString(), headers, isGet ? '' : body);
     }
 
-    var response = await post(uri, headers: headers, body: body);
+    var response = isGet ?
+      await get(uri, headers: headers) :
+      await post(uri, headers: headers, body: body);
 
     var error = null;
     var data = null;
@@ -138,13 +144,9 @@ class LastFmApi {
   }
 
   String _getParamsAsBody(Map<String, String> params, {
-    bool sign=false, bool authRequired=false, bool skipUseJson=false}) {
+    bool sign=false, bool authRequired=false}) {
 
     String combined = params.keys.toList().map((e) => '${e}=${params[e]}').join('&');
-
-    if (!skipUseJson && useJson) {
-      combined = '$combined&$_formatStr=$_jsonStr';
-    }
     
     if (sign || authRequired) {
       String apiSig = _getSignature(params);

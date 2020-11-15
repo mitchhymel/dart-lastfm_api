@@ -7,17 +7,21 @@ class Track extends BaseModel {
   final String url;
   final bool streamable;
   final TrackArtist artist;
+  final List<LastFmImage> image;
+  final int playCount;
 
   Track({this.name, this.duration, this.mbid,
-    this.url, this.streamable, this.artist});
+    this.url, this.streamable, this.artist, this.image, this.playCount});
 
   Track.fromMap(Map map) :
     name = map[NAME],
     duration = int.parse(map[DURATION]),
     mbid = map[MBID],
     url = map[URL],
-    streamable = int.parse(map[STREAMABLE]) == 1,
-    artist = TrackArtist.fromMap(map[ARTIST]);
+    streamable = int.parse(map[STREAMABLE][FULLTRACK]) == 1,
+    artist = TrackArtist.fromMap(map[ARTIST]),
+    image = LastFmImage.fromJsonList(map[IMAGE]),
+    playCount = int.parse(map[PLAYCOUNT]);
 
   @override
   Map toMap() {
@@ -27,8 +31,26 @@ class Track extends BaseModel {
       MBID: mbid,
       URL: url,
       STREAMABLE: streamable,
-      ARTIST: artist
+      ARTIST: artist,
+      IMAGE: image,
+      PLAYCOUNT: playCount,
     };
+  }
+
+  static List<Track> fromTagLastFmResponse(LastFmResponse response) {
+    List<Track> tracks = [];
+    List maps = response.data['taggings']['tracks']['track'];
+    maps.forEach((element) {
+      tracks.add(Track.fromMap(element));
+    });
+
+    return tracks;
+  }
+
+  static List<Track> fromJsonList(List<Map> maps) {
+    List<Track> list = [];
+    maps.forEach((x) => list.add(Track.fromMap(x)));
+    return list;
   }
 }
 
