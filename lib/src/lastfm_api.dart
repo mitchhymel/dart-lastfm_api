@@ -8,7 +8,7 @@ import 'package:lastfm/src/enums/enums.dart';
 import 'package:crypto/crypto.dart';
 import 'package:http/http.dart';
 import 'package:lastfm/src/lastfm_response.dart';
-import 'package:lastfm/src/decl/models.dart';
+import 'package:lastfm/src/models/models.dart';
 class LastFmApi {
   final String apiKey;
   final String sharedSecret;
@@ -100,22 +100,27 @@ class LastFmApi {
       await get(uri, headers: headers) :
       await post(uri, headers: headers, body: body);
 
-    var error = null;
+    LastFmError error = null;
     var data = null;
     if (response.statusCode != 200) {
       error = LastFmError.fromMap(json.decode(response.body));
     }
     else {
       data = json.decode(response.body);
+      error = LastFmError.fromMap(data);
+      if (error.message == null) {
+        error = null;
+      }
     }
 
     var result = new LastFmResponse(
       status: response.statusCode, 
       error: error, 
-      data: data
+      data: LastFmResponseData.fromJson(data)
     );
 
     if (logger != null) {
+      logger.logRawResponse(data);
       logger.logResponse(result);
     }
 

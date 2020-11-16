@@ -3,7 +3,7 @@ part of clients;
 class ChartClient extends BaseClient {
   ChartClient(RequestMethod requestMethod) : super(requestMethod);
 
-  Future<LastFmResponse<ChartGetTopArtistsResponse>> getTopArtists({
+  Future<LastFmResponse> getTopArtists({
     int limit=50, int page=1
   }) async {
       
@@ -13,14 +13,10 @@ class ChartClient extends BaseClient {
       PAGE: page.toString(),
     };
 
-    var resp = await makeRequest(params);
-
-    return resp.copyWith<ChartGetTopArtistsResponse>(
-      data: ChartGetTopArtistsResponse.fromJson(resp.data)
-    );
+    return makeRequest(params);
   }
 
-  Future<LastFmResponse<ChartGetTopTagsResponse>> getTopTags({
+  Future<LastFmResponse> getTopTags({
     int limit=50, int page=1
   }) async {
       
@@ -30,14 +26,10 @@ class ChartClient extends BaseClient {
       PAGE: page.toString(),
     };
 
-    var resp = await makeRequest(params);
-
-    return resp.copyWith<ChartGetTopTagsResponse>(
-      data: ChartGetTopTagsResponse.fromJson(resp.data)
-    );
+    return makeRequest(params);
   }
 
-  Future<LastFmResponse<ChartGetTopTracksResponse>> getTopTracks({
+  Future<LastFmResponse> getTopTracks({
     int limit=50, int page=1
   }) async {
       
@@ -47,10 +39,6 @@ class ChartClient extends BaseClient {
       PAGE: page.toString(),
     };
 
-    var resp = await makeRequest(params);
-
-    return resp.copyWith<ChartGetTopTracksResponse>(
-      data: ChartGetTopTracksResponse.fromJson(resp.data)
-    );
+    return makeRequest(params);
   }
 }

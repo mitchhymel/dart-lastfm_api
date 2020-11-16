@@ -1,4 +1,3 @@
-
 const STREAMABLE = 'streamable';
 const LISTENERS = 'listeners';
 const PLAYCOUNT = 'playcount';
@@ -49,4 +48,3 @@ const TRACK_NUMBER = 'trackNumber';
 const LOCATION = 'location';
 const COUNTRY = 'country';
 const TOKEN = 'token';
-const FULLTRACK = 'fulltrack';

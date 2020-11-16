@@ -1,9 +1,9 @@
 library clients;
 
-import 'package:lastfm/src/decl/models.dart';
 import 'package:lastfm/src/lastfm_helpers.dart';
 import 'package:lastfm/src/lastfm_response.dart';
-import 'package:lastfm/src/models/map_keys.dart';
+import 'package:lastfm/src/enums/constants.dart';
+import 'package:lastfm/src/models/models.dart';
 
 part 'album_client.dart';
 part 'artist_client.dart';

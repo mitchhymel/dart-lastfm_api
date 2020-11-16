@@ -1,6 +1,21 @@
-import 'dart:convert';
 
+import 'package:json_annotation/json_annotation.dart';
+part 'errors.g.dart';
+
+@JsonSerializable(includeIfNull: false)
 class LastFmError {
+
+  final int id;
+  final String message;
+  LastFmError({
+    this.id,
+    this.message
+  });
+  const LastFmError._private(this.id, this.message);
+  factory LastFmError.fromJson(Map<String, dynamic> json) =>
+    _$LastFmErrorFromJson(json);
+  Map<String, dynamic> toJson() => _$LastFmErrorToJson(this);
+
 
   static const int _invalidServiceId = 2;
   static const int _invalidMethodId = 3;
@@ -33,21 +48,6 @@ class LastFmError {
   static const LastFmError RATE_LIMIT_EXCEEDED = const LastFmError._private(_rateLimitedId, 'Your IP has made too many requests in a short period.');
 
   static const LastFmError UNKNOWN = const LastFmError._private(0, 'Unknown error code');
-
-  final int id;
-  final String message;
-  const LastFmError._private(this.id, this.message);
-
-  Map toMap() {
-    return {
-      'id': id,
-      'message': message
-    };
-  }
-
-  String toJson() {
-    return json.encode(this.toMap());
-  }
 
   static Map<int, LastFmError> codeMap = {
     _invalidServiceId: INVALID_SERVICE,

@@ -1,49 +1,32 @@
 
-import 'dart:convert';
 
+import 'package:json_annotation/json_annotation.dart';
 import 'package:lastfm/lastfm_api.dart';
 import 'package:lastfm/src/enums/enums.dart';
+import 'package:lastfm/src/models/models.dart';
 
-class LastFmResponse<T> {
+part 'lastfm_response.g.dart';
+
+@JsonSerializable(includeIfNull: false)
+class LastFmResponse {
 
   final int status;
   final LastFmError error;
-  final T data;
+  final LastFmResponseData data;
 
   LastFmResponse({
     this.status, 
     this.error, 
     this.data
   });
-  LastFmResponse<T> copyWith<T>({
-    int status,
-    LastFmError error,
-    T data,
-  }) => LastFmResponse<T>(
-    status: status ?? this.status,
-    error: error ?? this.error,
-    data: data ?? this.data,
-  );
+  factory LastFmResponse.fromJson(Map<String, dynamic> json) =>
+    _$LastFmResponseFromJson(json);
+  Map<String, dynamic> toJson() => _$LastFmResponseToJson(this);
 
-  bool isSuccess() => status == 200 && error == null && data != null;
-
-  Map toMap() {
-    return {
-      'status': status,
-      'error': error,
-      'data': data,
-    };
-  }
-
-  String toString() {
-    return this.toJson();
-  }
-
-  String toJson() {
-    return json.encode(this.toMap());
-  }
+  bool isSuccess() => status == 200 && data != null && 
+    error != null && error.message != null;
 
   String toPrettyJson() {
-    return LastFmHelpers.getPrettyStringFromMap(this.toMap());
+    return LastFmHelpers.getPrettyStringFromMap(this.toJson());
   }
 }

@@ -6,7 +6,7 @@ import 'dart:io';
 
 var logger = new LastFmConsoleLogger();
 var client = new LastFmApi(API_KEY, SHARED_SECRET, USER_AGENT,
-  // logger: logger,
+  //logger: logger,
 );
 
 String artist = 'Of Machines';
@@ -19,8 +19,12 @@ main() async {
 
   await client.loginWithSessionKey(SESSION_KEY,);
 
-  var res = await client.album.getInfo(album: album, artist: artist);
-  print(res.toString());
+  var res = await client.track.getSimilar(track: track, artist: artist);
+  printResp(res);
+}
+
+printResp(LastFmResponse resp) {
+  print(LastFmHelpers.getPrettyStringFromMap(resp.toJson()));
 }
 
 testEveryMethod() async {
@@ -148,7 +152,13 @@ class LogToFileLogger extends LastFmLogger {
   @override
   void logResponse(LastFmResponse response) {
     write('LastFm Response:');
-    write(LastFmHelpers.getPrettyStringFromMap(response.toMap()));
+    write(LastFmHelpers.getPrettyStringFromMap(response.toJson()));
+  }
+  
+  @override
+  void logRawResponse(dynamic data) {
+    write('LastFm Raw Response:');
+    write(LastFmHelpers.getPrettyStringFromMap(data));
   }
 
   void write(String str) {

@@ -13,7 +13,7 @@ class AuthClient extends BaseClient {
 
     var response = await makeRequest(params, sign: true);
 
-    return UserSession.fromJson(response.data[SESSION]);
+    return response.data.session;
   }
 
   Future<LastFmResponse> getSession(String token) async {
