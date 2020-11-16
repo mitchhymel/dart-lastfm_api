@@ -5,7 +5,7 @@ int _stringToInt(String number) => number == null ? null : int.parse(number);
 String _stringFromInt(int number) => number?.toString();
 double _stringToDouble(String number) => number == null ? null : double.parse(number);
 String _stringFromDouble(double number) => number?.toString();
-bool _stringToBool(String b) => b == null ? null : b == "1";
+bool _stringToBool(String b) => b == null ? null : b == "1" || b == "true";
 String _stringFromBool(bool b) => b.toString(); 
 
 int _intFromStringOrInt(dynamic x) => x == null ? null : x is String ? _stringToInt(x) : x is int ? x : null;
@@ -215,6 +215,8 @@ class Album {
   final Wiki wiki;
   @JsonKey(name: '@attr')
   final Attr attr;
+  @JsonKey(name: '#text')
+  final String text;
   Album({
     this.name,
     this.artist,
@@ -227,6 +229,7 @@ class Album {
     this.tags,
     this.wiki,
     this.attr,
+    this.text,
   });
   factory Album.fromJson(Map<String, dynamic> json) => _$AlbumFromJson(json);
   Map<String, dynamic> toJson() => _$AlbumToJson(this);
@@ -278,6 +281,10 @@ class Track {
   @JsonKey(name: 'toptags')
   final Tags topTags;
   final LastFmDate date;
+  @JsonKey(name: 'image')
+  final List<LastFmImage> images;
+
+  bool get nowPlaying => attr != null && attr.nowPlaying;
   Track({
     this.name,
     this.mbid,
@@ -291,6 +298,7 @@ class Track {
     this.album,
     this.topTags,
     this.date,
+    this.images,
   });
   factory Track.fromJson(Map<String, dynamic> json) => _$TrackFromJson(json);
   Map<String, dynamic> toJson() => _$TrackToJson(this);
@@ -325,8 +333,8 @@ class Attr {
   final String album;
   final String artistcorrected;
   final String trackcorrected;
-  @JsonKey(name: 'nowplaying')
-  final String nowPlaying;
+  @JsonKey(name: 'nowplaying', fromJson: _boolFromStringOrMap)
+  final bool nowPlaying;
   final String from;
   final String to;
   Attr({
@@ -405,6 +413,8 @@ class Artist {
   final int playCount;
   @JsonKey(name: '@attr')
   final Attr attr;
+  @JsonKey(name: '#text')
+  final String text;
 
   Artist({
     this.name,
@@ -421,6 +431,7 @@ class Artist {
     this.listeners,
     this.playCount,
     this.attr,
+    this.text,
   });
   factory Artist.fromJson(Map<String, dynamic> json) =>
     _$ArtistFromJson(json);

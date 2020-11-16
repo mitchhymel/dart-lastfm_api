@@ -299,6 +299,7 @@ Album _$AlbumFromJson(Map<String, dynamic> json) {
     attr: json['@attr'] == null
         ? null
         : Attr.fromJson(json['@attr'] as Map<String, dynamic>),
+    text: json['#text'] as String,
   );
 }
 
@@ -322,6 +323,7 @@ Map<String, dynamic> _$AlbumToJson(Album instance) {
   writeNotNull('tags', instance.tags);
   writeNotNull('wiki', instance.wiki);
   writeNotNull('@attr', instance.attr);
+  writeNotNull('#text', instance.text);
   return val;
 }
 
@@ -394,6 +396,10 @@ Track _$TrackFromJson(Map<String, dynamic> json) {
     date: json['date'] == null
         ? null
         : LastFmDate.fromJson(json['date'] as Map<String, dynamic>),
+    images: (json['image'] as List)
+        ?.map((e) =>
+            e == null ? null : LastFmImage.fromJson(e as Map<String, dynamic>))
+        ?.toList(),
   );
 }
 
@@ -418,6 +424,7 @@ Map<String, dynamic> _$TrackToJson(Track instance) {
   writeNotNull('album', instance.album);
   writeNotNull('toptags', instance.topTags);
   writeNotNull('date', instance.date);
+  writeNotNull('image', instance.images);
   return val;
 }
 
@@ -440,7 +447,7 @@ Attr _$AttrFromJson(Map<String, dynamic> json) {
     trackcorrected: json['trackcorrected'] as String,
     position: _intFromStringOrInt(json['position']),
     track: json['track'] as String,
-    nowPlaying: json['nowplaying'] as String,
+    nowPlaying: _boolFromStringOrMap(json['nowplaying']),
     from: json['from'] as String,
     to: json['to'] as String,
   );
@@ -554,6 +561,7 @@ Artist _$ArtistFromJson(Map<String, dynamic> json) {
     attr: json['@attr'] == null
         ? null
         : Attr.fromJson(json['@attr'] as Map<String, dynamic>),
+    text: json['#text'] as String,
   );
 }
 
@@ -580,6 +588,7 @@ Map<String, dynamic> _$ArtistToJson(Artist instance) {
   writeNotNull('listeners', _stringFromInt(instance.listeners));
   writeNotNull('playcount', _stringFromInt(instance.playCount));
   writeNotNull('@attr', instance.attr);
+  writeNotNull('#text', instance.text);
   return val;
 }
 

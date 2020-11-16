@@ -17,10 +17,23 @@ String tag = 'Disco';
 
 main() async {
 
-  await client.loginWithSessionKey(SESSION_KEY,);
+  // you should only ask for username and password once
+  // to start a session, then you only need to store
+  // the session key
+  //UserSession session = await client.loginWithUserNamePassword('username', 'password');
+  
+  // cache session.key somehow (e.g. shared_preferences)
 
-  var res = await client.artist.getCorrection(artist);
-  printResp(res);
+  // ....
+
+  // for all other logins, fetch your session key and initialize
+  // client like so
+  client.loginWithSessionKey(SESSION_KEY);
+
+  // Now you can make requests
+  LastFmResponse res = await client.artist.getCorrection(artist);
+  print(res.toPrettyJson());
+  //printResp(res);
 }
 
 printResp(LastFmResponse resp) {
