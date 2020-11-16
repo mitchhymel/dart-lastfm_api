@@ -6,7 +6,7 @@ import 'dart:io';
 
 var logger = new LastFmConsoleLogger();
 var client = new LastFmApi(API_KEY, SHARED_SECRET, USER_AGENT,
-  //logger: logger,
+  // logger: logger,
 );
 
 String artist = 'Of Machines';
@@ -19,9 +19,7 @@ main() async {
 
   await client.loginWithSessionKey(SESSION_KEY,);
 
-  // await testTag();
-  var res = await client.user.getRecentTracks(user);
-
+  var res = await client.album.getInfo(album: album, artist: artist);
   print(res.toString());
 }
 
@@ -38,8 +36,8 @@ testEveryMethod() async {
 testAlbum() async {
   var client = getClient('album');
 
-  await client.album.getInfo(artist: artist, album: album, user: user);
-  await client.album.getTags(artist: artist, album: album);
+  await client.album.getInfo(artist: artist, album: album);
+  await client.album.getTags(artist: artist, album: album, user: user);
   await client.album.getTopTags(artist: artist, album: album);
   await client.album.search(album);
 }

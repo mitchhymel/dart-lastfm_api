@@ -16,20 +16,20 @@ class AlbumGetTags {
   }
 }
 
-class Tags {
+class AlbumGetTagsTags {
   List<Tag> tag;
-  Attr attr;
+  AlbumGetTagsAttr attr;
 
-  Tags({this.tag, this.attr});
+  AlbumGetTagsTags({this.tag, this.attr});
 
-  Tags.fromJson(Map<String, dynamic> json) {
+  AlbumGetTagsTags.fromJson(Map<String, dynamic> json) {
     if (json['tag'] != null) {
       tag = new List<Tag>();
       json['tag'].forEach((v) {
         tag.add(new Tag.fromJson(v));
       });
     }
-    attr = json['@attr'] != null ? new Attr.fromJson(json['@attr']) : null;
+    attr = json['@attr'] != null ? new AlbumGetTagsAttr.fromJson(json['@attr']) : null;
   }
 
   Map<String, dynamic> toJson() {
@@ -44,13 +44,13 @@ class Tags {
   }
 }
 
-class Tag {
+class AlbumGetTagTag {
   String name;
   String url;
 
-  Tag({this.name, this.url});
+  AlbumGetTagTag({this.name, this.url});
 
-  Tag.fromJson(Map<String, dynamic> json) {
+  AlbumGetTagTag.fromJson(Map<String, dynamic> json) {
     name = json['name'];
     url = json['url'];
   }
@@ -63,13 +63,13 @@ class Tag {
   }
 }
 
-class Attr {
+class AlbumGetTagsAttr {
   String artist;
   String album;
 
-  Attr({this.artist, this.album});
+  AlbumGetTagsAttr({this.artist, this.album});
 
-  Attr.fromJson(Map<String, dynamic> json) {
+  AlbumGetTagsAttr.fromJson(Map<String, dynamic> json) {
     artist = json['artist'];
     album = json['album'];
   }

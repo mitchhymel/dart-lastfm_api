@@ -1,6 +1,7 @@
 part of clients;
 
-typedef RequestMethod = Future<LastFmResponse> Function(Map<String, String>, bool, bool, bool);
+typedef RequestMethod = Future<LastFmResponse> Function(Map<String, String>, 
+  bool, bool, bool);
 
 abstract class BaseClient {
   final RequestMethod requestMethod;

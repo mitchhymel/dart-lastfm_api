@@ -79,14 +79,14 @@ class OpensearchQuery {
 }
 
 class Albummatches {
-	List<Album> album;
+	List<SearchAlbum> album;
 
 	Albummatches({this.album});
 
 	Albummatches.fromJson(Map<String, dynamic> json) {
 		if (json['album'] != null) {
-			album = new List<Album>();
-			json['album'].forEach((v) { album.add(new Album.fromJson(v)); });
+			album = new List<SearchAlbum>();
+			json['album'].forEach((v) { album.add(new SearchAlbum.fromJson(v)); });
 		}
 	}
 
@@ -99,7 +99,7 @@ class Albummatches {
 	}
 }
 
-class Album {
+class SearchAlbum {
 	String name;
 	String artist;
 	String url;
@@ -107,9 +107,9 @@ class Album {
 	String streamable;
 	String mbid;
 
-	Album({this.name, this.artist, this.url, this.image, this.streamable, this.mbid});
+	SearchAlbum({this.name, this.artist, this.url, this.image, this.streamable, this.mbid});
 
-	Album.fromJson(Map<String, dynamic> json) {
+	SearchAlbum.fromJson(Map<String, dynamic> json) {
 		name = json['name'];
 		artist = json['artist'];
 		url = json['url'];
@@ -135,13 +135,13 @@ class Album {
 	}
 }
 
-class Image {
+class AlbumSearchImage {
 	String text;
 	String size;
 
-	Image({this.text, this.size});
+	AlbumSearchImage({this.text, this.size});
 
-	Image.fromJson(Map<String, dynamic> json) {
+	AlbumSearchImage.fromJson(Map<String, dynamic> json) {
 		text = json['#text'];
 		size = json['size'];
 	}
@@ -154,12 +154,12 @@ class Image {
 	}
 }
 
-class Attr {
+class AlbumSearchAttr {
 	String album;
 
-	Attr({this.album});
+	AlbumSearchAttr({this.album});
 
-	Attr.fromJson(Map<String, dynamic> json) {
+	AlbumSearchAttr.fromJson(Map<String, dynamic> json) {
 		album = json['for'];
 	}
 

@@ -17,8 +17,9 @@ class AlbumClient extends BaseClient {
     return makeRequest(params, authRequired: true);
   }
 
-  Future<LastFmResponse> getInfo({String artist, String album,
-    String mbid, String lang, bool autoCorrect=false, String user
+  Future<LastFmResponse<AlbumGetInfoResponse>> getInfo({String artist, 
+    String album, String mbid, String lang, bool autoCorrect=false,
+    String user
   }) async {
       
     var params = {
@@ -32,10 +33,14 @@ class AlbumClient extends BaseClient {
     LastFmHelpers.addValueIfNotNull(params, USER, user);
     LastFmHelpers.addValueIfNotNull(params, LANG, lang);
 
-    return makeRequest(params);
+    var resp = await makeRequest(params);
+
+    return resp.copyWith<AlbumGetInfoResponse>(
+      data: AlbumGetInfoResponse.fromJson(resp.data)
+    );
   }
 
-  Future<LastFmResponse> getTags({String artist, String album,
+  Future<LastFmResponse<AlbumGetTagsResponse>> getTags({String artist, String album,
     String mbid, bool autoCorrect=false, String user
   }) async {
       
@@ -49,10 +54,14 @@ class AlbumClient extends BaseClient {
     LastFmHelpers.addValueIfNotNull(params, ALBUM, album);
     LastFmHelpers.addValueIfNotNull(params, USER, user);
 
-    return makeRequest(params);
+    var resp = await makeRequest(params);
+
+    return resp.copyWith<AlbumGetTagsResponse>(
+      data: AlbumGetTagsResponse.fromJson(resp.data)
+    );
   }
 
-  Future<LastFmResponse> getTopTags({String artist, String album,
+  Future<LastFmResponse<AlbumGetTopTagsResponse>> getTopTags({String artist, String album,
     String mbid, bool autoCorrect=false
   }) async {
       
@@ -65,7 +74,11 @@ class AlbumClient extends BaseClient {
     LastFmHelpers.addValueIfNotNull(params, ARTIST, artist);
     LastFmHelpers.addValueIfNotNull(params, ALBUM, album);
 
-    return makeRequest(params);
+    var resp = await makeRequest(params);
+
+    return resp.copyWith<AlbumGetTopTagsResponse>(
+      data: AlbumGetTopTagsResponse.fromJson(resp.data)
+    );
   }
 
   Future<LastFmResponse> removeTag(String artist, String album, 
@@ -82,7 +95,7 @@ class AlbumClient extends BaseClient {
     return makeRequest(params, authRequired: true);
   }
 
-  Future<LastFmResponse> search(String album, {
+  Future<LastFmResponse<AlbumSearchResponse>> search(String album, {
     int limit=30, int page=1
   }) async {
       
@@ -93,6 +106,10 @@ class AlbumClient extends BaseClient {
       PAGE: page.toString(),
     };
 
-    return makeRequest(params);
+    var resp = await makeRequest(params);
+
+    return resp.copyWith<AlbumSearchResponse>(
+      data: AlbumSearchResponse.fromJson(resp.data)
+    );
   }
 }

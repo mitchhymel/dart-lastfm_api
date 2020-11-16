@@ -45,14 +45,14 @@ class Toptags {
   }
 }
 
-class Tag {
+class AlbumGetTopTagsTag {
   int count;
   String name;
   String url;
 
-  Tag({this.count, this.name, this.url});
+  AlbumGetTopTagsTag({this.count, this.name, this.url});
 
-  Tag.fromJson(Map<String, dynamic> json) {
+  AlbumGetTopTagsTag.fromJson(Map<String, dynamic> json) {
     count = json['count'];
     name = json['name'];
     url = json['url'];
@@ -67,13 +67,13 @@ class Tag {
   }
 }
 
-class Attr {
+class AlbumGetTopTagsAttr {
   String artist;
   String album;
 
-  Attr({this.artist, this.album});
+  AlbumGetTopTagsAttr({this.artist, this.album});
 
-  Attr.fromJson(Map<String, dynamic> json) {
+  AlbumGetTopTagsAttr.fromJson(Map<String, dynamic> json) {
     artist = json['artist'];
     album = json['album'];
   }

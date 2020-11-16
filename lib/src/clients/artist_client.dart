@@ -41,13 +41,13 @@ class ArtistClient extends BaseClient {
     return makeRequest(params);
   }
 
-  Future<ArtistInfo> getInfoTyped({String artist,
-    String mbid, String lang, bool autoCorrect=false, String userName
-  }) async {
-    var response = await getInfo(artist: artist,
-      mbid: mbid, lang: lang, autoCorrect: autoCorrect, userName: userName);
-    return ArtistInfo.fromLastFmResponse(response);
-  }
+  // Future<ArtistInfo> getInfoTyped({String artist,
+  //   String mbid, String lang, bool autoCorrect=false, String userName
+  // }) async {
+  //   var response = await getInfo(artist: artist,
+  //     mbid: mbid, lang: lang, autoCorrect: autoCorrect, userName: userName);
+  //   return ArtistInfo.fromLastFmResponse(response);
+  // }
 
   Future<LastFmResponse> getSimilar({String artist,
     int limit=100, bool autoCorrect=false, String mbid
@@ -65,13 +65,13 @@ class ArtistClient extends BaseClient {
     return makeRequest(params);
   }
 
-  Future<List<SimilarArtist>> getSimilarTyped({String artist, 
-    int limit=100, bool autoCorrect=false, String mbid
-  }) async {
-    var response = await getSimilar(artist: artist,
-      limit: limit, autoCorrect: autoCorrect, mbid: mbid);
-    return SimilarArtist.fromLastFmResponse(response);
-  }
+  // Future<List<SimilarArtist>> getSimilarTyped({String artist, 
+  //   int limit=100, bool autoCorrect=false, String mbid
+  // }) async {
+  //   var response = await getSimilar(artist: artist,
+  //     limit: limit, autoCorrect: autoCorrect, mbid: mbid);
+  //   return SimilarArtist.fromLastFmResponse(response);
+  // }
 
   Future<LastFmResponse> getTags({String artist,
      String mbid, String user, bool autoCorrect=false,

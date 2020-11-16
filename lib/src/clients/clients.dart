@@ -1,8 +1,8 @@
 library clients;
 
+import 'package:lastfm/src/decl/models.dart';
 import 'package:lastfm/src/lastfm_helpers.dart';
 import 'package:lastfm/src/lastfm_response.dart';
-import 'package:lastfm/src/models/models.dart';
 import 'package:lastfm/src/models/map_keys.dart';
 
 part 'album_client.dart';
