@@ -100,14 +100,16 @@ class LastFmApi {
       await get(uri, headers: headers) :
       await post(uri, headers: headers, body: body);
 
-    LastFmError error = null;
-    var data = null;
+    var data = json.decode(response.body);
+    LastFmError error = LastFmError.fromMap(data);
+    if (logger != null) {
+      logger.logRawResponse(data);
+    }
+
     if (response.statusCode != 200) {
-      error = LastFmError.fromMap(json.decode(response.body));
+      data = null;
     }
     else {
-      data = json.decode(response.body);
-      error = LastFmError.fromMap(data);
       if (error.message == null) {
         error = null;
       }
@@ -120,7 +122,6 @@ class LastFmApi {
     );
 
     if (logger != null) {
-      logger.logRawResponse(data);
       logger.logResponse(result);
     }
 

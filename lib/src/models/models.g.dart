@@ -184,9 +184,9 @@ Results _$ResultsFromJson(Map<String, dynamic> json) {
         ? null
         : OpenSearchQuery.fromJson(
             json['opensearch:Query'] as Map<String, dynamic>),
-    totalResults: _stringToInt(json['opensearch:totalResults'] as String),
-    startIndex: _stringToInt(json['opensearch:startIndex'] as String),
-    itemsPerPage: _stringToInt(json['opensearch:itemsPerPage'] as String),
+    totalResults: _intFromStringOrInt(json['opensearch:totalResults']),
+    startIndex: _intFromStringOrInt(json['opensearch:startIndex']),
+    itemsPerPage: _intFromStringOrInt(json['opensearch:itemsPerPage']),
     albums: json['albummatches'] == null
         ? null
         : Albums.fromJson(json['albummatches'] as Map<String, dynamic>),
@@ -229,7 +229,7 @@ OpenSearchQuery _$OpenSearchQueryFromJson(Map<String, dynamic> json) {
     text: json['#text'] as String,
     role: json['role'] as String,
     searchTerms: json['searchTerms'] as String,
-    startPage: _stringToInt(json['startPage'] as String),
+    startPage: _intFromStringOrInt(json['startPage']),
   );
 }
 
@@ -278,15 +278,15 @@ Map<String, dynamic> _$AlbumsToJson(Albums instance) {
 Album _$AlbumFromJson(Map<String, dynamic> json) {
   return Album(
     name: json['name'] as String,
-    artist: json['artist'] as String,
+    artist: _artistFromStringOrMap(json['artist']),
     mbid: json['mbid'] as String,
     url: json['url'] as String,
     image: (json['image'] as List)
         ?.map((e) =>
             e == null ? null : LastFmImage.fromJson(e as Map<String, dynamic>))
         ?.toList(),
-    listeners: _stringToInt(json['listeners'] as String),
-    playcount: _stringToInt(json['playcount'] as String),
+    listeners: _intFromStringOrInt(json['listeners']),
+    playcount: _intFromStringOrInt(json['playcount']),
     tracks: json['tracks'] == null
         ? null
         : Tracks.fromJson(json['tracks'] as Map<String, dynamic>),
@@ -377,18 +377,14 @@ Track _$TrackFromJson(Map<String, dynamic> json) {
     name: json['name'] as String,
     mbid: json['mbid'] as String,
     url: json['url'] as String,
-    duration: json['duration'] as int,
+    duration: _intFromStringOrInt(json['duration']),
     attr: json['@attr'] == null
         ? null
         : Attr.fromJson(json['@attr'] as Map<String, dynamic>),
-    streamable: json['streamable'] == null
-        ? null
-        : Streamable.fromJson(json['streamable'] as Map<String, dynamic>),
-    artist: json['artist'] == null
-        ? null
-        : Artist.fromJson(json['artist'] as Map<String, dynamic>),
-    listeners: _stringToInt(json['listeners'] as String),
-    playcount: _stringToInt(json['playcount'] as String),
+    streamable: _boolFromStringOrMap(json['streamable']),
+    artist: _artistFromStringOrMap(json['artist']),
+    listeners: _intFromStringOrInt(json['listeners']),
+    playcount: _intFromStringOrInt(json['playcount']),
     album: json['album'] == null
         ? null
         : Album.fromJson(json['album'] as Map<String, dynamic>),
@@ -413,9 +409,9 @@ Map<String, dynamic> _$TrackToJson(Track instance) {
   writeNotNull('name', instance.name);
   writeNotNull('mbid', instance.mbid);
   writeNotNull('url', instance.url);
-  writeNotNull('duration', instance.duration);
+  writeNotNull('duration', _stringFromInt(instance.duration));
   writeNotNull('@attr', instance.attr);
-  writeNotNull('streamable', instance.streamable);
+  writeNotNull('streamable', _stringFromBool(instance.streamable));
   writeNotNull('artist', instance.artist);
   writeNotNull('listeners', _stringFromInt(instance.listeners));
   writeNotNull('playcount', _stringFromInt(instance.playcount));
@@ -427,22 +423,22 @@ Map<String, dynamic> _$TrackToJson(Track instance) {
 
 Attr _$AttrFromJson(Map<String, dynamic> json) {
   return Attr(
-    rank: _stringToInt(json['rank'] as String),
+    rank: _intFromStringOrInt(json['rank']),
     artist: json['artist'] as String,
     album: json['album'] as String,
     forStr: json['for'] as String,
-    index: _stringToInt(json['index'] as String),
-    page: _stringToInt(json['page'] as String),
-    perPage: _stringToInt(json['perPage'] as String),
-    totalPages: _stringToInt(json['totalPages'] as String),
-    total: _stringToInt(json['total'] as String),
+    index: _intFromStringOrInt(json['index']),
+    page: _intFromStringOrInt(json['page']),
+    perPage: _intFromStringOrInt(json['perPage']),
+    totalPages: _intFromStringOrInt(json['totalPages']),
+    total: _intFromStringOrInt(json['total']),
     user: json['user'] as String,
     tag: json['tag'] as String,
-    offset: _stringToInt(json['offset'] as String),
-    numRes: _stringToInt(json['num_res'] as String),
+    offset: _intFromStringOrInt(json['offset']),
+    numRes: _intFromStringOrInt(json['num_res']),
     artistcorrected: json['artistcorrected'] as String,
     trackcorrected: json['trackcorrected'] as String,
-    position: _stringToInt(json['position'] as String),
+    position: _intFromStringOrInt(json['position']),
     track: json['track'] as String,
     nowPlaying: json['nowplaying'] as String,
     from: json['from'] as String,
@@ -552,9 +548,9 @@ Artist _$ArtistFromJson(Map<String, dynamic> json) {
     bio: json['bio'] == null
         ? null
         : Wiki.fromJson(json['bio'] as Map<String, dynamic>),
-    match: json['match'] as String,
-    listeners: _stringToInt(json['listeners'] as String),
-    playCount: _stringToInt(json['playcount'] as String),
+    match: _stringToDouble(json['match'] as String),
+    listeners: _intFromStringOrInt(json['listeners']),
+    playCount: _intFromStringOrInt(json['playcount']),
     attr: json['@attr'] == null
         ? null
         : Attr.fromJson(json['@attr'] as Map<String, dynamic>),
@@ -580,7 +576,7 @@ Map<String, dynamic> _$ArtistToJson(Artist instance) {
   writeNotNull('similar', instance.similar);
   writeNotNull('tags', instance.tags);
   writeNotNull('bio', instance.bio);
-  writeNotNull('match', instance.match);
+  writeNotNull('match', _stringFromDouble(instance.match));
   writeNotNull('listeners', _stringFromInt(instance.listeners));
   writeNotNull('playcount', _stringFromInt(instance.playCount));
   writeNotNull('@attr', instance.attr);
@@ -614,11 +610,11 @@ Map<String, dynamic> _$TagsToJson(Tags instance) {
 
 Tag _$TagFromJson(Map<String, dynamic> json) {
   return Tag(
-    count: _stringToInt(json['count'] as String),
+    count: _intFromStringOrInt(json['count']),
     name: json['name'] as String,
     url: json['url'] as String,
-    total: _stringToInt(json['total'] as String),
-    reach: _stringToInt(json['reach'] as String),
+    total: _intFromStringOrInt(json['total']),
+    reach: _intFromStringOrInt(json['reach']),
     taggings: json['taggings'] as String,
     streamable: json['streamable'] as String,
     wiki: json['wiki'] == null
@@ -678,7 +674,7 @@ UserSession _$UserSessionFromJson(Map<String, dynamic> json) {
   return UserSession(
     userName: json['userName'] as String,
     key: json['key'] as String,
-    subscriber: json['subscriber'] as int,
+    subscriber: _boolFromStringOrMap(json['subscriber']),
   );
 }
 
@@ -699,8 +695,8 @@ Map<String, dynamic> _$UserSessionToJson(UserSession instance) {
 
 Stats _$StatsFromJson(Map<String, dynamic> json) {
   return Stats(
-    listeners: _stringToInt(json['listeners'] as String),
-    playcount: _stringToInt(json['playcount'] as String),
+    listeners: _intFromStringOrInt(json['listeners']),
+    playcount: _intFromStringOrInt(json['playcount']),
   );
 }
 
@@ -866,8 +862,8 @@ Map<String, dynamic> _$UsersToJson(Users instance) {
 User _$UserFromJson(Map<String, dynamic> json) {
   return User(
     playlists: json['playlists'] as String,
-    playCount: _stringToInt(json['playcount'] as String),
-    subscriber: json['subscriber'] as String,
+    playCount: _intFromStringOrInt(json['playcount']),
+    subscriber: _boolFromStringOrMap(json['subscriber']),
     name: json['name'] as String,
     country: json['country'] as String,
     images: (json['image'] as List)
@@ -882,7 +878,7 @@ User _$UserFromJson(Map<String, dynamic> json) {
     bootstrap: json['bootstrap'] as String,
     type: json['type'] as String,
     gender: json['gender'] as String,
-    age: _stringToInt(json['age'] as String),
+    age: _intFromStringOrInt(json['age']),
   );
 }
 
@@ -913,8 +909,7 @@ Map<String, dynamic> _$UserToJson(User instance) {
 
 Registered _$RegisteredFromJson(Map<String, dynamic> json) {
   return Registered(
-    unixtime: json['unixtime'] as String,
-    text: json['#text'] as String,
+    unixtime: _dateTimeFromStringOrInt(json['unixtime']),
   );
 }
 
@@ -927,8 +922,7 @@ Map<String, dynamic> _$RegisteredToJson(Registered instance) {
     }
   }
 
-  writeNotNull('unixtime', instance.unixtime);
-  writeNotNull('#text', instance.text);
+  writeNotNull('unixtime', instance.unixtime?.toIso8601String());
   return val;
 }
 

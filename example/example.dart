@@ -19,7 +19,7 @@ main() async {
 
   await client.loginWithSessionKey(SESSION_KEY,);
 
-  var res = await client.track.getSimilar(track: track, artist: artist);
+  var res = await client.artist.getCorrection(artist);
   printResp(res);
 }
 
@@ -83,7 +83,6 @@ testTag() async {
   var client = getClient('tag');
   
   await client.tag.getInfo(tag);
-  await client.tag.getSimilar(tag);
   await client.tag.getTopAlbums(tag);
   await client.tag.getTopArtists(tag);
   await client.tag.getTopTags();
@@ -95,7 +94,7 @@ testTrack() async {
   var client = getClient('track');
 
   await client.track.getCorrection(artist, track);
-  await client.track.getInfo(artist: artist, track: track, userName: user);
+  await client.track.getInfo(artist: artist, track: track);
   await client.track.getSimilar(artist: artist, track: track);
   await client.track.getTags(artist: artist, track: track, user: user);
   await client.track.getTopTags(artist: artist, track: track);
@@ -120,7 +119,10 @@ testUser() async {
 }
 
 LastFmApi getClient(String fileToLogTo) {
-  var client = new LastFmApi(API_KEY, SHARED_SECRET, USER_AGENT, logger: new LogToFileLogger(fileToLogTo));
+  var client = new LastFmApi(API_KEY, SHARED_SECRET, USER_AGENT, 
+    logger: LastFmConsoleLogger(),
+    //logger: new LogToFileLogger(fileToLogTo)
+  );
   client.loginWithSessionKey(SESSION_KEY);
   return client;
 }

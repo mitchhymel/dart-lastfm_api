@@ -3,6 +3,15 @@ part 'models.g.dart';
 
 int _stringToInt(String number) => number == null ? null : int.parse(number);
 String _stringFromInt(int number) => number?.toString();
+double _stringToDouble(String number) => number == null ? null : double.parse(number);
+String _stringFromDouble(double number) => number?.toString();
+bool _stringToBool(String b) => b == null ? null : b == "1";
+String _stringFromBool(bool b) => b.toString(); 
+
+int _intFromStringOrInt(dynamic x) => x == null ? null : x is String ? _stringToInt(x) : x is int ? x : null;
+bool _boolFromStringOrMap(dynamic x) => x == null ? null : x is String ? _stringToBool(x) : x is Map<String, dynamic> ? _stringToBool(x['fulltrack']) : null;
+Artist _artistFromStringOrMap(dynamic x) => x == null ? null : x is String ? Artist(name: x) : x is Map<String, dynamic> ? Artist.fromJson(x) : null;
+DateTime _dateTimeFromStringOrInt(dynamic x) => x == null ? null : x is String ? DateTime.fromMillisecondsSinceEpoch(_stringToInt(x) * 1000) : x is int ? DateTime.fromMillisecondsSinceEpoch(x * 1000) : null;
 
 @JsonSerializable(includeIfNull: false)
 class LastFmResponseData {
@@ -124,13 +133,13 @@ class Results {
   @JsonKey(name: 'opensearch:Query')
   final OpenSearchQuery query;
   @JsonKey(name: 'opensearch:totalResults',
-    fromJson: _stringToInt, toJson: _stringFromInt)
+    fromJson: _intFromStringOrInt, toJson: _stringFromInt)
   final int totalResults;
   @JsonKey(name: 'opensearch:startIndex',
-    fromJson: _stringToInt, toJson: _stringFromInt)
+    fromJson: _intFromStringOrInt, toJson: _stringFromInt)
   final int startIndex;
   @JsonKey(name: 'opensearch:itemsPerPage',
-    fromJson: _stringToInt, toJson: _stringFromInt)
+    fromJson: _intFromStringOrInt, toJson: _stringFromInt)
   final int itemsPerPage;
   @JsonKey(name: 'albummatches')
   final Albums albums;
@@ -161,7 +170,7 @@ class OpenSearchQuery {
   final String text;
   final String role;
   final String searchTerms;
-  @JsonKey(fromJson: _stringToInt, toJson: _stringFromInt)
+  @JsonKey(fromJson: _intFromStringOrInt, toJson: _stringFromInt)
   final int startPage;
   OpenSearchQuery({
     this.text,
@@ -192,13 +201,14 @@ class Albums {
 @JsonSerializable(includeIfNull: false)
 class Album {
   final String name;
-  final String artist;
+  @JsonKey(fromJson: _artistFromStringOrMap)
+  final Artist artist;
   final String mbid;
   final String url;
   final List<LastFmImage> image;
-  @JsonKey(fromJson: _stringToInt, toJson: _stringFromInt)
+  @JsonKey(fromJson: _intFromStringOrInt, toJson: _stringFromInt)
   final int listeners;
-  @JsonKey(fromJson: _stringToInt, toJson: _stringFromInt)
+  @JsonKey(fromJson: _intFromStringOrInt, toJson: _stringFromInt)
   final int playcount;
   final Tracks tracks;
   final Tags tags;
@@ -252,14 +262,17 @@ class Track {
   final String name;
   final String mbid;
   final String url;
+  @JsonKey(fromJson: _intFromStringOrInt, toJson: _stringFromInt)
   final int duration;
   @JsonKey(name: '@attr')
   final Attr attr;
-  final Streamable streamable;
+  @JsonKey(fromJson: _boolFromStringOrMap, toJson: _stringFromBool)
+  final bool streamable;
+  @JsonKey(fromJson: _artistFromStringOrMap)
   final Artist artist;
-  @JsonKey(fromJson: _stringToInt, toJson: _stringFromInt)
+  @JsonKey(fromJson: _intFromStringOrInt, toJson: _stringFromInt)
   final int listeners;
-  @JsonKey(name: 'playcount', fromJson: _stringToInt, toJson: _stringFromInt)
+  @JsonKey(name: 'playcount', fromJson: _intFromStringOrInt, toJson: _stringFromInt)
   final int playcount;
   final Album album;
   @JsonKey(name: 'toptags')
@@ -285,25 +298,25 @@ class Track {
 
 @JsonSerializable(includeIfNull: false)
 class Attr {
-  @JsonKey(fromJson: _stringToInt, toJson: _stringFromInt)
+  @JsonKey(fromJson: _intFromStringOrInt, toJson: _stringFromInt)
   final int rank;
   @JsonKey(name: 'for')
   final String forStr;
-  @JsonKey(fromJson: _stringToInt, toJson: _stringFromInt)
+  @JsonKey(fromJson: _intFromStringOrInt, toJson: _stringFromInt)
   final int index;
-  @JsonKey(fromJson: _stringToInt, toJson: _stringFromInt)
+  @JsonKey(fromJson: _intFromStringOrInt, toJson: _stringFromInt)
   final int page;
-  @JsonKey(fromJson: _stringToInt, toJson: _stringFromInt)
+  @JsonKey(fromJson: _intFromStringOrInt, toJson: _stringFromInt)
   final int perPage;
-  @JsonKey(fromJson: _stringToInt, toJson: _stringFromInt)
+  @JsonKey(fromJson: _intFromStringOrInt, toJson: _stringFromInt)
   final int totalPages;
-  @JsonKey(fromJson: _stringToInt, toJson: _stringFromInt)
+  @JsonKey(fromJson: _intFromStringOrInt, toJson: _stringFromInt)
   final int total;
-  @JsonKey(fromJson: _stringToInt, toJson: _stringFromInt)
+  @JsonKey(fromJson: _intFromStringOrInt, toJson: _stringFromInt)
   final int offset;
-  @JsonKey(fromJson: _stringToInt, toJson: _stringFromInt)
+  @JsonKey(fromJson: _intFromStringOrInt, toJson: _stringFromInt)
   final int position;
-  @JsonKey(name: 'num_res', fromJson: _stringToInt, toJson: _stringFromInt)
+  @JsonKey(name: 'num_res', fromJson: _intFromStringOrInt, toJson: _stringFromInt)
   final int numRes;
   final String user;
   final String tag;
@@ -384,10 +397,11 @@ class Artist {
   final Tags tags;
   @JsonKey(name: 'bio')
   final Wiki bio;
-  final String match;
-  @JsonKey(fromJson: _stringToInt, toJson: _stringFromInt)
+  @JsonKey(fromJson: _stringToDouble, toJson: _stringFromDouble)
+  final double match;
+  @JsonKey(fromJson: _intFromStringOrInt, toJson: _stringFromInt)
   final int listeners;
-  @JsonKey(name: 'playcount', fromJson: _stringToInt, toJson: _stringFromInt)
+  @JsonKey(name: 'playcount', fromJson: _intFromStringOrInt, toJson: _stringFromInt)
   final int playCount;
   @JsonKey(name: '@attr')
   final Attr attr;
@@ -429,13 +443,13 @@ class Tags {
 
 @JsonSerializable(includeIfNull: false)
 class Tag {
-  @JsonKey(fromJson: _stringToInt, toJson: _stringFromInt)
+  @JsonKey(fromJson: _intFromStringOrInt, toJson: _stringFromInt)
   final int count;
   final String name;
   final String url;
-  @JsonKey(fromJson: _stringToInt, toJson: _stringFromInt)
+  @JsonKey(fromJson: _intFromStringOrInt, toJson: _stringFromInt)
   final int total;
-  @JsonKey(fromJson: _stringToInt, toJson: _stringFromInt)
+  @JsonKey(fromJson: _intFromStringOrInt, toJson: _stringFromInt)
   final int reach;
   final String taggings;
   final String streamable;
@@ -474,7 +488,8 @@ class Wiki {
 class UserSession {
   final String userName;
   final String key;
-  final int subscriber;
+  @JsonKey(fromJson: _boolFromStringOrMap)
+  final bool subscriber;
   UserSession({
     this.userName,
     this.key,
@@ -487,9 +502,9 @@ class UserSession {
 
 @JsonSerializable(includeIfNull: false)
 class Stats {
-  @JsonKey(fromJson: _stringToInt, toJson: _stringFromInt)
+  @JsonKey(fromJson: _intFromStringOrInt, toJson: _stringFromInt)
   final int listeners;
-  @JsonKey(fromJson: _stringToInt, toJson: _stringFromInt)
+  @JsonKey(fromJson: _intFromStringOrInt, toJson: _stringFromInt)
   final int playcount;
   Stats({
     this.listeners,
@@ -592,9 +607,10 @@ class Users {
 class User {
 
   final String playlists;
-  @JsonKey(name: 'playcount', fromJson: _stringToInt, toJson: _stringFromInt)
+  @JsonKey(name: 'playcount', fromJson: _intFromStringOrInt, toJson: _stringFromInt)
   final int playCount;
-  final String subscriber;
+  @JsonKey(fromJson: _boolFromStringOrMap)
+  final bool subscriber;
   final String name;
   final String country;
   @JsonKey(name: 'image')
@@ -605,7 +621,7 @@ class User {
   final String bootstrap;
   final String type;
   final String gender;
-  @JsonKey(fromJson: _stringToInt, toJson: _stringFromInt)
+  @JsonKey(fromJson: _intFromStringOrInt, toJson: _stringFromInt)
   final int age;
   
   User({
@@ -630,12 +646,10 @@ class User {
 
 @JsonSerializable(includeIfNull: false)
 class Registered {
-  final String unixtime;
-  @JsonKey(name: '#text')
-  final String text;
+  @JsonKey(fromJson: _dateTimeFromStringOrInt)
+  final DateTime unixtime;
   Registered({
     this.unixtime,
-    this.text,
   });
   factory Registered.fromJson(Map<String, dynamic> json) => 
     _$RegisteredFromJson(json);
