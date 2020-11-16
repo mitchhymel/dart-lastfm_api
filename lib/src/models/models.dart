@@ -1,7 +1,9 @@
+import 'dart:convert';
+
 import 'package:json_annotation/json_annotation.dart';
 part 'models.g.dart';
 
-int _stringToInt(String number) => number == null ? null : int.parse(number);
+int _stringToInt(String number) => number == null ? null : number == "FIXME" ? 0 : int.parse(number);
 String _stringFromInt(int number) => number?.toString();
 double _stringToDouble(String number) => number == null ? null : double.parse(number);
 String _stringFromDouble(double number) => number?.toString();
@@ -95,6 +97,8 @@ class LastFmResponseData {
   factory LastFmResponseData.fromJson(Map<String, dynamic> json) =>
     _$LastFmResponseDataFromJson(json);
   Map<String, dynamic> toJson() => _$LastFmResponseDataToJson(this);
+  @override
+  String toString() => jsonEncode(toJson);
 }
 
 //
@@ -110,6 +114,8 @@ class Corrections {
   factory Corrections.fromJson(Map<String, dynamic> json) =>
     _$CorrectionsFromJson(json);
   Map<String, dynamic> toJson() => _$CorrectionsToJson(this);
+  @override
+  String toString() => jsonEncode(toJson);
 }
 
 @JsonSerializable(includeIfNull: false)
@@ -126,6 +132,8 @@ class Correction {
   factory Correction.fromJson(Map<String, dynamic> json) =>
     _$CorrectionFromJson(json);
   Map<String, dynamic> toJson() => _$CorrectionToJson(this);
+  @override
+  String toString() => jsonEncode(toJson);
 }
 
 @JsonSerializable(includeIfNull: false)
@@ -162,6 +170,8 @@ class Results {
   factory Results.fromJson(Map<String, dynamic> json) =>
     _$ResultsFromJson(json);
   Map<String, dynamic> toJson() => _$ResultsToJson(this);
+  @override
+  String toString() => jsonEncode(toJson);
 }
 
 @JsonSerializable(includeIfNull: false)
@@ -181,6 +191,8 @@ class OpenSearchQuery {
   factory OpenSearchQuery.fromJson(Map<String, dynamic> json) =>
     _$OpenSearchQueryFromJson(json);
   Map<String, dynamic> toJson() => _$OpenSearchQueryToJson(this);
+  @override
+  String toString() => jsonEncode(toJson);
 }
 
 @JsonSerializable(includeIfNull: false)
@@ -196,6 +208,8 @@ class Albums {
   factory Albums.fromJson(Map<String, dynamic> json) =>
     _$AlbumsFromJson(json);
   Map<String, dynamic> toJson() => _$AlbumsToJson(this);
+  @override
+  String toString() => jsonEncode(toJson);
 }
 
 @JsonSerializable(includeIfNull: false)
@@ -233,6 +247,8 @@ class Album {
   });
   factory Album.fromJson(Map<String, dynamic> json) => _$AlbumFromJson(json);
   Map<String, dynamic> toJson() => _$AlbumToJson(this);
+  @override
+  String toString() => jsonEncode(toJson);
 }
 
 @JsonSerializable(includeIfNull: false)
@@ -244,6 +260,8 @@ class LastFmImage {
   factory LastFmImage.fromJson(Map<String, dynamic> json) =>
     _$LastFmImageFromJson(json);
   Map<String, dynamic> toJson() => _$LastFmImageToJson(this);
+  @override
+  String toString() => jsonEncode(toJson);
 }
 
 @JsonSerializable(includeIfNull: false)
@@ -258,6 +276,8 @@ class Tracks {
   });
   factory Tracks.fromJson(Map<String, dynamic> json) => _$TracksFromJson(json);
   Map<String, dynamic> toJson() => _$TracksToJson(this);
+  @override
+  String toString() => jsonEncode(toJson);
 }
 
 @JsonSerializable(includeIfNull: false)
@@ -361,6 +381,8 @@ class Attr {
   });
   factory Attr.fromJson(Map<String, dynamic> json) => _$AttrFromJson(json);
   Map<String, dynamic> toJson() => _$AttrToJson(this);
+  @override
+  String toString() => jsonEncode(toJson);
 }
 
 @JsonSerializable(includeIfNull: false)
@@ -375,6 +397,8 @@ class Streamable {
   factory Streamable.fromJson(Map<String, dynamic> json) => 
     _$StreamableFromJson(json);
   Map<String, dynamic> toJson() => _$StreamableToJson(this);
+  @override
+  String toString() => jsonEncode(toJson);
 }
 
 @JsonSerializable(includeIfNull: false)
@@ -390,6 +414,8 @@ class Artists {
   factory Artists.fromJson(Map<String, dynamic> json) => 
     _$ArtistsFromJson(json);
   Map<String, dynamic> toJson() => _$ArtistsToJson(this);
+  @override
+  String toString() => jsonEncode(toJson);
 }
 
 @JsonSerializable(includeIfNull: false)
@@ -436,6 +462,8 @@ class Artist {
   factory Artist.fromJson(Map<String, dynamic> json) =>
     _$ArtistFromJson(json);
   Map<String, dynamic> toJson() => _$ArtistToJson(this);
+  @override
+  String toString() => jsonEncode(toJson);
 }
 
 @JsonSerializable(includeIfNull: false)
@@ -450,6 +478,8 @@ class Tags {
   });
   factory Tags.fromJson(Map<String, dynamic> json) => _$TagsFromJson(json);
   Map<String, dynamic> toJson() => _$TagsToJson(this);
+  @override
+  String toString() => jsonEncode(toJson);
 }
 
 @JsonSerializable(includeIfNull: false)
@@ -477,6 +507,8 @@ class Tag {
   });
   factory Tag.fromJson(Map<String, dynamic> json) => _$TagFromJson(json);
   Map<String, dynamic> toJson() => _$TagToJson(this);
+  @override
+  String toString() => jsonEncode(toJson);
 }
 
 @JsonSerializable(includeIfNull: false)
@@ -493,6 +525,8 @@ class Wiki {
   });
   factory Wiki.fromJson(Map<String, dynamic> json) => _$WikiFromJson(json);
   Map<String, dynamic> toJson() => _$WikiToJson(this);
+  @override
+  String toString() => jsonEncode(toJson);
 }
 
 @JsonSerializable(includeIfNull: false)
@@ -509,6 +543,8 @@ class UserSession {
   factory UserSession.fromJson(Map<String, dynamic> json) => 
     _$UserSessionFromJson(json);
   Map<String, dynamic> toJson() => _$UserSessionToJson(this);
+  @override
+  String toString() => jsonEncode(toJson);
 }
 
 @JsonSerializable(includeIfNull: false)
@@ -524,6 +560,8 @@ class Stats {
   factory Stats.fromJson(Map<String, dynamic> json) => 
     _$StatsFromJson(json);
   Map<String, dynamic> toJson() => _$StatsToJson(this);
+  @override
+  String toString() => jsonEncode(toJson);
 }
 
 @JsonSerializable(includeIfNull: false)
@@ -539,6 +577,8 @@ class Similar {
   factory Similar.fromJson(Map<String, dynamic> json) => 
     _$SimilarFromJson(json);
   Map<String, dynamic> toJson() => _$SimilarToJson(this);
+  @override
+  String toString() => jsonEncode(toJson);
 }
 
 @JsonSerializable(includeIfNull: false)
@@ -550,6 +590,8 @@ class Links {
   factory Links.fromJson(Map<String, dynamic> json) => 
     _$LinksFromJson(json);
   Map<String, dynamic> toJson() => _$LinksToJson(this);
+  @override
+  String toString() => jsonEncode(toJson);
 }
 
 @JsonSerializable(includeIfNull: false)
@@ -566,6 +608,8 @@ class Link {
   factory Link.fromJson(Map<String, dynamic> json) => 
     _$LinkFromJson(json);
   Map<String, dynamic> toJson() => _$LinkToJson(this);
+  @override
+  String toString() => jsonEncode(toJson);
 }
 
 @JsonSerializable(includeIfNull: false)
@@ -581,6 +625,8 @@ class WeeklyChartList {
   factory WeeklyChartList.fromJson(Map<String, dynamic> json) => 
     _$WeeklyChartListFromJson(json);
   Map<String, dynamic> toJson() => _$WeeklyChartListToJson(this);
+  @override
+  String toString() => jsonEncode(toJson);
 }
 
 @JsonSerializable(includeIfNull: false)
@@ -597,6 +643,8 @@ class Chart {
   factory Chart.fromJson(Map<String, dynamic> json) => 
     _$ChartFromJson(json);
   Map<String, dynamic> toJson() => _$ChartToJson(this);
+  @override
+  String toString() => jsonEncode(toJson);
 }
 
 @JsonSerializable(includeIfNull: false)
@@ -612,6 +660,8 @@ class Users {
   factory Users.fromJson(Map<String, dynamic> json) => 
     _$UsersFromJson(json);
   Map<String, dynamic> toJson() => _$UsersToJson(this);
+  @override
+  String toString() => jsonEncode(toJson);
 }
 
 @JsonSerializable(includeIfNull: false)
@@ -653,6 +703,8 @@ class User {
   factory User.fromJson(Map<String, dynamic> json) => 
     _$UserFromJson(json);
   Map<String, dynamic> toJson() => _$UserToJson(this);
+  @override
+  String toString() => jsonEncode(toJson);
 }
 
 @JsonSerializable(includeIfNull: false)
@@ -665,6 +717,8 @@ class Registered {
   factory Registered.fromJson(Map<String, dynamic> json) => 
     _$RegisteredFromJson(json);
   Map<String, dynamic> toJson() => _$RegisteredToJson(this);
+  @override
+  String toString() => jsonEncode(toJson);
 }
 
 @JsonSerializable(includeIfNull: false)
@@ -679,6 +733,8 @@ class LastFmDate {
   factory LastFmDate.fromJson(Map<String, dynamic> json) => 
     _$LastFmDateFromJson(json);
   Map<String, dynamic> toJson() => _$LastFmDateToJson(this);
+  @override
+  String toString() => jsonEncode(toJson);
 }
 
 @JsonSerializable(includeIfNull: false)
@@ -693,4 +749,6 @@ class Taggings {
   factory Taggings.fromJson(Map<String, dynamic> json) => 
     _$TaggingsFromJson(json);
   Map<String, dynamic> toJson() => _$TaggingsToJson(this);
+  @override
+  String toString() => jsonEncode(toJson);
 }

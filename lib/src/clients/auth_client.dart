@@ -4,16 +4,14 @@ part of clients;
 class AuthClient extends BaseClient {
   AuthClient(RequestMethod requestMethod) : super(requestMethod);
   
-  Future<UserSession> getMobileSession(String userName, String password) async {
+  Future<LastFmResponse> getMobileSession(String userName, String password) async {
     var params = {
       METHOD: 'auth.getMobileSession',
       PASSWORD: password,
       USERNAME: userName,
     };
 
-    var response = await makeRequest(params, sign: true);
-
-    return response.data.session;
+    return makeRequest(params, sign: true);
   }
 
   Future<LastFmResponse> getSession(String token) async {

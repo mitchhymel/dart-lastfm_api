@@ -101,25 +101,39 @@ class LastFmApi {
       await post(uri, headers: headers, body: body);
 
     var data = json.decode(response.body);
-    LastFmError error = LastFmError.fromMap(data);
     if (logger != null) {
       logger.logRawResponse(data);
     }
 
-    if (response.statusCode != 200) {
-      data = null;
-    }
-    else {
-      if (error.message == null) {
-        error = null;
+    LastFmResponse result;
+    LastFmError error = LastFmError.fromMap(data);
+    if (response.statusCode == 200) {
+      if (error == null || error.message == null) {
+        result = new LastFmResponse(
+          error: null,
+          status: response.statusCode,
+          data: LastFmResponseData.fromJson(data)
+        );
+      }
+      else {
+        // sometimes we can get 200, but still receive an error
+        // from lastfm
+        // in which case we want data to be null and error to still be the error
+        // from above
+        result = new LastFmResponse(
+          error: error,
+          status: response.statusCode,
+          data: null
+        );
       }
     }
-
-    var result = new LastFmResponse(
-      status: response.statusCode, 
-      error: error, 
-      data: LastFmResponseData.fromJson(data)
-    );
+    else {
+      result = new LastFmResponse(
+        error: error,
+        status: response.statusCode,
+        data: null
+      );
+    }
 
     if (logger != null) {
       logger.logResponse(result);
@@ -133,9 +147,13 @@ class LastFmApi {
   }
 
   Future<UserSession> loginWithUserNamePassword(String userName, String password) async {
-    var session = await auth.getMobileSession(userName, password);
-    this.sessionKey = session.key;
-    return session;
+    var res = await auth.getMobileSession(userName, password);
+    if (!res.isSuccess()) {
+      return null;
+    }
+
+    this.sessionKey = res.data.session.key;
+    return res.data.session;
   }
 
   void loginWithSessionKey(String sessionKey) {

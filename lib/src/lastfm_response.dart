@@ -1,5 +1,7 @@
 
 
+import 'dart:convert';
+
 import 'package:json_annotation/json_annotation.dart';
 import 'package:lastfm/lastfm_api.dart';
 import 'package:lastfm/src/enums/enums.dart';
@@ -23,10 +25,12 @@ class LastFmResponse {
     _$LastFmResponseFromJson(json);
   Map<String, dynamic> toJson() => _$LastFmResponseToJson(this);
 
-  bool isSuccess() => status == 200 && data != null && 
-    error != null && error.message != null;
+  bool isSuccess() => status == 200 && data != null && error == null;
 
   String toPrettyJson() {
     return LastFmHelpers.getPrettyStringFromMap(this.toJson());
   }
+
+  @override
+  String toString() => jsonEncode(toJson());
 }
