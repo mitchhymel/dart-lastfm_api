@@ -6,6 +6,80 @@ part of 'models.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
+LastFmResponseData _$LastFmResponseDataFromJson(Map<String, dynamic> json) {
+  return LastFmResponseData(
+    album: json['album'] == null
+        ? null
+        : Album.fromJson(json['album'] as Map<String, dynamic>),
+    albums: json['albums'] == null
+        ? null
+        : Albums.fromJson(json['albums'] as Map<String, dynamic>),
+    topAlbums: json['topalbums'] == null
+        ? null
+        : Albums.fromJson(json['topalbums'] as Map<String, dynamic>),
+    artist: json['artist'] == null
+        ? null
+        : Artist.fromJson(json['artist'] as Map<String, dynamic>),
+    artists: json['artists'] == null
+        ? null
+        : Artists.fromJson(json['artists'] as Map<String, dynamic>),
+    topArtists: json['topartists'] == null
+        ? null
+        : Artists.fromJson(json['topartists'] as Map<String, dynamic>),
+    similarArtists: json['similarartists'] == null
+        ? null
+        : Similar.fromJson(json['similarartists'] as Map<String, dynamic>),
+    tag: json['tag'] == null
+        ? null
+        : Tag.fromJson(json['tag'] as Map<String, dynamic>),
+    tags: json['tags'] == null
+        ? null
+        : Tags.fromJson(json['tags'] as Map<String, dynamic>),
+    topTags: json['toptags'] == null
+        ? null
+        : Tags.fromJson(json['toptags'] as Map<String, dynamic>),
+    track: json['track'] == null
+        ? null
+        : Track.fromJson(json['track'] as Map<String, dynamic>),
+    tracks: json['tracks'] == null
+        ? null
+        : Tracks.fromJson(json['tracks'] as Map<String, dynamic>),
+    topTracks: json['toptracks'] == null
+        ? null
+        : Tracks.fromJson(json['toptracks'] as Map<String, dynamic>),
+    results: json['results'] == null
+        ? null
+        : Results.fromJson(json['results'] as Map<String, dynamic>),
+    corrections: json['corrections'] == null
+        ? null
+        : Corrections.fromJson(json['corrections'] as Map<String, dynamic>),
+    weeklyChartList: json['weeklychartlist'] == null
+        ? null
+        : WeeklyChartList.fromJson(
+            json['weeklychartlist'] as Map<String, dynamic>),
+  );
+}
+
+Map<String, dynamic> _$LastFmResponseDataToJson(LastFmResponseData instance) =>
+    <String, dynamic>{
+      'track': instance.track,
+      'tracks': instance.tracks,
+      'toptracks': instance.topTracks,
+      'artist': instance.artist,
+      'artists': instance.artists,
+      'topartists': instance.topArtists,
+      'similarartists': instance.similarArtists,
+      'album': instance.album,
+      'albums': instance.albums,
+      'topalbums': instance.topAlbums,
+      'tag': instance.tag,
+      'tags': instance.tags,
+      'toptags': instance.topTags,
+      'results': instance.results,
+      'corrections': instance.corrections,
+      'weeklychartlist': instance.weeklyChartList,
+    };
+
 AlbumGetInfoResponse _$AlbumGetInfoResponseFromJson(Map<String, dynamic> json) {
   return AlbumGetInfoResponse(
     album: json['album'] == null
@@ -180,6 +254,155 @@ Map<String, dynamic> _$ArtistSearchResponseToJson(
         ArtistSearchResponse instance) =>
     <String, dynamic>{
       'results': instance.results,
+    };
+
+ChartGetTopArtistsResponse _$ChartGetTopArtistsResponseFromJson(
+    Map<String, dynamic> json) {
+  return ChartGetTopArtistsResponse(
+    artists: json['artists'] == null
+        ? null
+        : Artists.fromJson(json['artists'] as Map<String, dynamic>),
+  );
+}
+
+Map<String, dynamic> _$ChartGetTopArtistsResponseToJson(
+        ChartGetTopArtistsResponse instance) =>
+    <String, dynamic>{
+      'artists': instance.artists,
+    };
+
+ChartGetTopTagsResponse _$ChartGetTopTagsResponseFromJson(
+    Map<String, dynamic> json) {
+  return ChartGetTopTagsResponse(
+    tags: json['tags'] == null
+        ? null
+        : Tags.fromJson(json['tags'] as Map<String, dynamic>),
+  );
+}
+
+Map<String, dynamic> _$ChartGetTopTagsResponseToJson(
+        ChartGetTopTagsResponse instance) =>
+    <String, dynamic>{
+      'tags': instance.tags,
+    };
+
+ChartGetTopTracksResponse _$ChartGetTopTracksResponseFromJson(
+    Map<String, dynamic> json) {
+  return ChartGetTopTracksResponse(
+    tracks: json['tracks'] == null
+        ? null
+        : Tracks.fromJson(json['tracks'] as Map<String, dynamic>),
+  );
+}
+
+Map<String, dynamic> _$ChartGetTopTracksResponseToJson(
+        ChartGetTopTracksResponse instance) =>
+    <String, dynamic>{
+      'tracks': instance.tracks,
+    };
+
+LibraryGetArtistsResponse _$LibraryGetArtistsResponseFromJson(
+    Map<String, dynamic> json) {
+  return LibraryGetArtistsResponse(
+    artists: json['artists'] == null
+        ? null
+        : Artists.fromJson(json['artists'] as Map<String, dynamic>),
+  );
+}
+
+Map<String, dynamic> _$LibraryGetArtistsResponseToJson(
+        LibraryGetArtistsResponse instance) =>
+    <String, dynamic>{
+      'artists': instance.artists,
+    };
+
+TagGetInfoResponse _$TagGetInfoResponseFromJson(Map<String, dynamic> json) {
+  return TagGetInfoResponse(
+    tag: json['tag'] == null
+        ? null
+        : Tag.fromJson(json['tag'] as Map<String, dynamic>),
+  );
+}
+
+Map<String, dynamic> _$TagGetInfoResponseToJson(TagGetInfoResponse instance) =>
+    <String, dynamic>{
+      'tag': instance.tag,
+    };
+
+TagGetTopAlbumsResponse _$TagGetTopAlbumsResponseFromJson(
+    Map<String, dynamic> json) {
+  return TagGetTopAlbumsResponse(
+    topAlbums: json['topAlbums'] == null
+        ? null
+        : Albums.fromJson(json['topAlbums'] as Map<String, dynamic>),
+  );
+}
+
+Map<String, dynamic> _$TagGetTopAlbumsResponseToJson(
+        TagGetTopAlbumsResponse instance) =>
+    <String, dynamic>{
+      'topAlbums': instance.topAlbums,
+    };
+
+TagGetTopArtistsResponse _$TagGetTopArtistsResponseFromJson(
+    Map<String, dynamic> json) {
+  return TagGetTopArtistsResponse(
+    topArtists: json['topartists'] == null
+        ? null
+        : Artists.fromJson(json['topartists'] as Map<String, dynamic>),
+  );
+}
+
+Map<String, dynamic> _$TagGetTopArtistsResponseToJson(
+        TagGetTopArtistsResponse instance) =>
+    <String, dynamic>{
+      'topartists': instance.topArtists,
+    };
+
+TagGetTopTagsResponse _$TagGetTopTagsResponseFromJson(
+    Map<String, dynamic> json) {
+  return TagGetTopTagsResponse(
+    topTags: json['toptags'] == null
+        ? null
+        : Tags.fromJson(json['toptags'] as Map<String, dynamic>),
+  );
+}
+
+Map<String, dynamic> _$TagGetTopTagsResponseToJson(
+        TagGetTopTagsResponse instance) =>
+    <String, dynamic>{
+      'toptags': instance.topTags,
+    };
+
+TagGetTopTracksResponse _$TagGetTopTracksResponseFromJson(
+    Map<String, dynamic> json) {
+  return TagGetTopTracksResponse(
+    topTracks: json['tracks'] == null
+        ? null
+        : Tracks.fromJson(json['tracks'] as Map<String, dynamic>),
+  );
+}
+
+Map<String, dynamic> _$TagGetTopTracksResponseToJson(
+        TagGetTopTracksResponse instance) =>
+    <String, dynamic>{
+      'tracks': instance.topTracks,
+    };
+
+TagGetWeeklyChartListResponse _$TagGetWeeklyChartListResponseFromJson(
+    Map<String, dynamic> json) {
+  return TagGetWeeklyChartListResponse(
+    weeklyChartList: json['weeklychartlist'] == null
+        ? null
+        : WeeklyChartList.fromJson(
+            json['weeklychartlist'] as Map<String, dynamic>),
+  );
+}
+
+Map<String, dynamic> _$TagGetWeeklyChartListResponseToJson(
+        TagGetWeeklyChartListResponse instance) =>
+    <String, dynamic>{
+      'weeklychartlist': instance.weeklyChartList,
     };
 
 Corrections _$CorrectionsFromJson(Map<String, dynamic> json) {
@@ -381,19 +604,27 @@ Attr _$AttrFromJson(Map<String, dynamic> json) {
     perPage: _stringToInt(json['perPage'] as String),
     totalPages: _stringToInt(json['totalPages'] as String),
     total: _stringToInt(json['total'] as String),
+    user: json['user'] as String,
+    tag: json['tag'] as String,
+    offset: _stringToInt(json['offset'] as String),
+    numRes: _stringToInt(json['num_res'] as String),
   );
 }
 
 Map<String, dynamic> _$AttrToJson(Attr instance) => <String, dynamic>{
       'rank': _stringFromInt(instance.rank),
-      'artist': instance.artist,
-      'album': instance.album,
       'for': instance.forStr,
       'index': _stringFromInt(instance.index),
       'page': _stringFromInt(instance.page),
       'perPage': _stringFromInt(instance.perPage),
       'totalPages': _stringFromInt(instance.totalPages),
       'total': _stringFromInt(instance.total),
+      'offset': _stringFromInt(instance.offset),
+      'num_res': _stringFromInt(instance.numRes),
+      'user': instance.user,
+      'tag': instance.tag,
+      'artist': instance.artist,
+      'album': instance.album,
     };
 
 Streamable _$StreamableFromJson(Map<String, dynamic> json) {
@@ -415,11 +646,15 @@ Artists _$ArtistsFromJson(Map<String, dynamic> json) {
         ?.map((e) =>
             e == null ? null : Artist.fromJson(e as Map<String, dynamic>))
         ?.toList(),
+    attr: json['@attr'] == null
+        ? null
+        : Attr.fromJson(json['@attr'] as Map<String, dynamic>),
   );
 }
 
 Map<String, dynamic> _$ArtistsToJson(Artists instance) => <String, dynamic>{
       'artist': instance.artists,
+      '@attr': instance.attr,
     };
 
 Artist _$ArtistFromJson(Map<String, dynamic> json) {
@@ -486,6 +721,13 @@ Tag _$TagFromJson(Map<String, dynamic> json) {
     count: json['count'] as int,
     name: json['name'] as String,
     url: json['url'] as String,
+    total: _stringToInt(json['total'] as String),
+    reach: _stringToInt(json['reach'] as String),
+    taggings: json['taggings'] as String,
+    streamable: json['streamable'] as String,
+    wiki: json['wiki'] == null
+        ? null
+        : Wiki.fromJson(json['wiki'] as Map<String, dynamic>),
   );
 }
 
@@ -493,6 +735,11 @@ Map<String, dynamic> _$TagToJson(Tag instance) => <String, dynamic>{
       'count': instance.count,
       'name': instance.name,
       'url': instance.url,
+      'total': _stringFromInt(instance.total),
+      'reach': _stringFromInt(instance.reach),
+      'taggings': instance.taggings,
+      'streamable': instance.streamable,
+      'wiki': instance.wiki,
     };
 
 Wiki _$WikiFromJson(Map<String, dynamic> json) {
@@ -581,4 +828,36 @@ Map<String, dynamic> _$LinkToJson(Link instance) => <String, dynamic>{
       '#text': instance.text,
       'rel': instance.rel,
       'href': instance.href,
+    };
+
+WeeklyChartList _$WeeklyChartListFromJson(Map<String, dynamic> json) {
+  return WeeklyChartList(
+    charts: (json['chart'] as List)
+        ?.map(
+            (e) => e == null ? null : Chart.fromJson(e as Map<String, dynamic>))
+        ?.toList(),
+    attr: json['@attr'] == null
+        ? null
+        : Attr.fromJson(json['@attr'] as Map<String, dynamic>),
+  );
+}
+
+Map<String, dynamic> _$WeeklyChartListToJson(WeeklyChartList instance) =>
+    <String, dynamic>{
+      'chart': instance.charts,
+      '@attr': instance.attr,
+    };
+
+Chart _$ChartFromJson(Map<String, dynamic> json) {
+  return Chart(
+    text: json['#text'] as String,
+    to: json['to'] as String,
+    from: json['from'] as String,
+  );
+}
+
+Map<String, dynamic> _$ChartToJson(Chart instance) => <String, dynamic>{
+      '#text': instance.text,
+      'to': instance.to,
+      'from': instance.from,
     };

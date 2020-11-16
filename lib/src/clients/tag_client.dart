@@ -3,7 +3,7 @@ part of clients;
 class TagClient extends BaseClient {
   TagClient(RequestMethod requestMethod) : super(requestMethod);
 
-  Future<LastFmResponse> getInfo(String tag, {String lang}) async {
+  Future<LastFmResponse<TagGetInfoResponse>> getInfo(String tag, {String lang}) async {
       
     var params = {
       METHOD: 'tag.getInfo',
@@ -12,7 +12,11 @@ class TagClient extends BaseClient {
     
     LastFmHelpers.addValueIfNotNull(params, LANG, lang);
 
-    return makeRequest(params);
+    var resp = await makeRequest(params);
+
+    return resp.copyWith<TagGetInfoResponse>(
+      data: TagGetInfoResponse.fromJson(resp.data)
+    );
   }
 
   Future<LastFmResponse> getSimilar(String tag) async {
@@ -26,7 +30,7 @@ class TagClient extends BaseClient {
     // return makeRequest(params);
   }
 
-  Future<LastFmResponse> getTopAlbums(String tag, {
+  Future<LastFmResponse<TagGetTopAlbumsResponse>> getTopAlbums(String tag, {
     int limit=50, int page=1,
   }) async {
       
@@ -37,10 +41,14 @@ class TagClient extends BaseClient {
       PAGE: page.toString(),
     };
 
-    return makeRequest(params);
+    var resp = await makeRequest(params);
+
+    return resp.copyWith<TagGetTopAlbumsResponse>(
+      data: TagGetTopAlbumsResponse.fromJson(resp.data)
+    );
   }
 
-  Future<LastFmResponse> getTopArtists(String tag, {
+  Future<LastFmResponse<TagGetTopArtistsResponse>> getTopArtists(String tag, {
     int limit=50, int page=1,
   }) async {
       
@@ -51,19 +59,27 @@ class TagClient extends BaseClient {
       PAGE: page.toString(),
     };
 
-    return makeRequest(params);
+    var resp = await makeRequest(params);
+
+    return resp.copyWith<TagGetTopArtistsResponse>(
+      data: TagGetTopArtistsResponse.fromJson(resp.data)
+    );
   }
 
-  Future<LastFmResponse> getTopTags() async {
+  Future<LastFmResponse<TagGetTopTagsResponse>> getTopTags() async {
       
     var params = {
       METHOD: 'tag.getTopTags',
     };
 
-    return makeRequest(params, isGet: true);
+    var resp = await makeRequest(params, isGet: true);
+
+    return resp.copyWith<TagGetTopTagsResponse>(
+      data: TagGetTopTagsResponse.fromJson(resp.data)
+    );
   }
 
-  Future<LastFmResponse> getTopTracks(String tag, {
+  Future<LastFmResponse<TagGetTopTracksResponse>> getTopTracks(String tag, {
     int limit=50, int page=1,
   }) async {
       
@@ -74,16 +90,24 @@ class TagClient extends BaseClient {
       PAGE: page.toString(),
     };
 
-    return makeRequest(params);
+    var resp = await makeRequest(params);
+
+    return resp.copyWith<TagGetTopTracksResponse>(
+      data: TagGetTopTracksResponse.fromJson(resp.data)
+    );
   }
 
-  Future<LastFmResponse> getWeeklyChartList(String tag) async {
+  Future<LastFmResponse<TagGetWeeklyChartListResponse>> getWeeklyChartList(String tag) async {
       
     var params = {
       METHOD: 'tag.getWeeklyChartList',
       TAG: tag,
     };
 
-    return makeRequest(params);
+    var resp = await makeRequest(params);
+
+    return resp.copyWith<TagGetWeeklyChartListResponse>(
+      data: TagGetWeeklyChartListResponse.fromJson(resp.data)
+    );
   }
 }

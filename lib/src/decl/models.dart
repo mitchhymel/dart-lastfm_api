@@ -5,6 +5,59 @@ int _stringToInt(String number) => number == null ? null : int.parse(number);
 String _stringFromInt(int number) => number?.toString();
 
 @JsonSerializable()
+class LastFmResponseData {
+  
+  final Track track;
+  final Tracks tracks;
+  @JsonKey(name: 'toptracks')
+  final Tracks topTracks;
+
+  final Artist artist;
+  final Artists artists;
+  @JsonKey(name: 'topartists')
+  final Artists topArtists;
+  @JsonKey(name: 'similarartists')
+  final Similar similarArtists;
+
+  final Album album;
+  final Albums albums;
+  @JsonKey(name: 'topalbums')
+  final Albums topAlbums;
+
+  final Tag tag;
+  final Tags tags;
+  @JsonKey(name: 'toptags')
+  final Tags topTags;
+
+  final Results results;
+  final Corrections corrections;
+  @JsonKey(name: 'weeklychartlist')
+  final WeeklyChartList weeklyChartList;
+  LastFmResponseData({
+    this.album,
+    this.albums,
+    this.topAlbums,
+    this.artist,
+    this.artists,
+    this.topArtists,
+    this.similarArtists,
+    this.tag,
+    this.tags,
+    this.topTags,
+    this.track,
+    this.tracks,
+    this.topTracks,
+    this.results,
+    this.corrections,
+    this.weeklyChartList,
+  });
+
+  factory LastFmResponseData.fromJson(Map<String, dynamic> json) =>
+    _$LastFmResponseDataFromJson(json);
+  Map<String, dynamic> toJson() => _$LastFmResponseDataToJson(this);
+}
+
+@JsonSerializable()
 class AlbumGetInfoResponse {
   final Album album;
   AlbumGetInfoResponse({this.album});
@@ -120,6 +173,102 @@ class ArtistSearchResponse {
     _$ArtistSearchResponseFromJson(json);
   Map<String, dynamic> toJson() => _$ArtistSearchResponseToJson(this);
 }
+
+@JsonSerializable()
+class ChartGetTopArtistsResponse {
+  final Artists artists;
+  ChartGetTopArtistsResponse({this.artists});
+  factory ChartGetTopArtistsResponse.fromJson(Map<String, dynamic> json) =>
+    _$ChartGetTopArtistsResponseFromJson(json);
+  Map<String, dynamic> toJson() => _$ChartGetTopArtistsResponseToJson(this);
+}
+
+@JsonSerializable()
+class ChartGetTopTagsResponse {
+  final Tags tags;
+  ChartGetTopTagsResponse({this.tags});
+  factory ChartGetTopTagsResponse.fromJson(Map<String, dynamic> json) =>
+    _$ChartGetTopTagsResponseFromJson(json);
+  Map<String, dynamic> toJson() => _$ChartGetTopTagsResponseToJson(this);
+}
+
+@JsonSerializable()
+class ChartGetTopTracksResponse {
+  final Tracks tracks;
+  ChartGetTopTracksResponse({this.tracks});
+  factory ChartGetTopTracksResponse.fromJson(Map<String, dynamic> json) =>
+    _$ChartGetTopTracksResponseFromJson(json);
+  Map<String, dynamic> toJson() => _$ChartGetTopTracksResponseToJson(this);
+}
+
+@JsonSerializable()
+class LibraryGetArtistsResponse {
+  final Artists artists;
+  LibraryGetArtistsResponse({this.artists});
+  factory LibraryGetArtistsResponse.fromJson(Map<String, dynamic> json) =>
+    _$LibraryGetArtistsResponseFromJson(json);
+  Map<String, dynamic> toJson() => _$LibraryGetArtistsResponseToJson(this);
+}
+
+@JsonSerializable()
+class TagGetInfoResponse {
+  final Tag tag;
+  TagGetInfoResponse({this.tag});
+  factory TagGetInfoResponse.fromJson(Map<String, dynamic> json) =>
+    _$TagGetInfoResponseFromJson(json);
+  Map<String, dynamic> toJson() => _$TagGetInfoResponseToJson(this);
+}
+
+@JsonSerializable()
+class TagGetTopAlbumsResponse {
+  @JsonKey('albums')
+  final Albums topAlbums;
+  TagGetTopAlbumsResponse({this.topAlbums});
+  factory TagGetTopAlbumsResponse.fromJson(Map<String, dynamic> json) =>
+    _$TagGetTopAlbumsResponseFromJson(json);
+  Map<String, dynamic> toJson() => _$TagGetTopAlbumsResponseToJson(this);
+}
+
+@JsonSerializable()
+class TagGetTopArtistsResponse {
+  @JsonKey(name: 'topartists')
+  final Artists topArtists;
+  TagGetTopArtistsResponse({this.topArtists});
+  factory TagGetTopArtistsResponse.fromJson(Map<String, dynamic> json) =>
+    _$TagGetTopArtistsResponseFromJson(json);
+  Map<String, dynamic> toJson() => _$TagGetTopArtistsResponseToJson(this);
+}
+
+@JsonSerializable()
+class TagGetTopTagsResponse {
+  @JsonKey(name: 'toptags')
+  final Tags topTags;
+  TagGetTopTagsResponse({this.topTags});
+  factory TagGetTopTagsResponse.fromJson(Map<String, dynamic> json) =>
+    _$TagGetTopTagsResponseFromJson(json);
+  Map<String, dynamic> toJson() => _$TagGetTopTagsResponseToJson(this);
+}
+
+@JsonSerializable()
+class TagGetTopTracksResponse {
+  @JsonKey(name: 'tracks')
+  final Tracks topTracks;
+  TagGetTopTracksResponse({this.topTracks});
+  factory TagGetTopTracksResponse.fromJson(Map<String, dynamic> json) =>
+    _$TagGetTopTracksResponseFromJson(json);
+  Map<String, dynamic> toJson() => _$TagGetTopTracksResponseToJson(this);
+}
+
+@JsonSerializable()
+class TagGetWeeklyChartListResponse {
+  @JsonKey(name: 'weeklychartlist')
+  final WeeklyChartList weeklyChartList;
+  TagGetWeeklyChartListResponse({this.weeklyChartList});
+  factory TagGetWeeklyChartListResponse.fromJson(Map<String, dynamic> json) =>
+    _$TagGetWeeklyChartListResponseFromJson(json);
+  Map<String, dynamic> toJson() => _$TagGetWeeklyChartListResponseToJson(this);
+}
+
 
 
 //
@@ -298,8 +447,6 @@ class Track {
 class Attr {
   @JsonKey(fromJson: _stringToInt, toJson: _stringFromInt)
   final int rank;
-  final String artist;
-  final String album;
   @JsonKey(name: 'for')
   final String forStr;
   @JsonKey(fromJson: _stringToInt, toJson: _stringFromInt)
@@ -312,6 +459,14 @@ class Attr {
   final int totalPages;
   @JsonKey(fromJson: _stringToInt, toJson: _stringFromInt)
   final int total;
+  @JsonKey(fromJson: _stringToInt, toJson: _stringFromInt)
+  final int offset;
+  @JsonKey(name: 'num_res', fromJson: _stringToInt, toJson: _stringFromInt)
+  final int numRes;
+  final String user;
+  final String tag;
+  final String artist;
+  final String album;
   Attr({
     this.rank,
     this.artist,
@@ -322,6 +477,10 @@ class Attr {
     this.perPage,
     this.totalPages,
     this.total,
+    this.user,
+    this.tag,
+    this.offset,
+    this.numRes,
   });
   factory Attr.fromJson(Map<String, dynamic> json) => _$AttrFromJson(json);
   Map<String, dynamic> toJson() => _$AttrToJson(this);
@@ -345,8 +504,11 @@ class Streamable {
 class Artists {
   @JsonKey(name: 'artist')
   final List<Artist> artists;
+  @JsonKey(name: '@attr')
+  final Attr attr;
   Artists({
-    this.artists
+    this.artists,
+    this.attr,
   });
   factory Artists.fromJson(Map<String, dynamic> json) => 
     _$ArtistsFromJson(json);
@@ -408,10 +570,22 @@ class Tag {
   final int count;
   final String name;
   final String url;
+  @JsonKey(fromJson: _stringToInt, toJson: _stringFromInt)
+  final int total;
+  @JsonKey(fromJson: _stringToInt, toJson: _stringFromInt)
+  final int reach;
+  final String taggings;
+  final String streamable;
+  final Wiki wiki;
   Tag({
     this.count,
     this.name,
     this.url,
+    this.total,
+    this.reach,
+    this.taggings,
+    this.streamable,
+    this.wiki,
   });
   factory Tag.fromJson(Map<String, dynamic> json) => _$TagFromJson(json);
   Map<String, dynamic> toJson() => _$TagToJson(this);
@@ -503,4 +677,35 @@ class Link {
   factory Link.fromJson(Map<String, dynamic> json) => 
     _$LinkFromJson(json);
   Map<String, dynamic> toJson() => _$LinkToJson(this);
+}
+
+@JsonSerializable()
+class WeeklyChartList {
+  @JsonKey(name: 'chart')
+  final List<Chart> charts;
+  @JsonKey(name: '@attr')
+  final Attr attr;
+  WeeklyChartList({
+    this.charts,
+    this.attr
+  });
+  factory WeeklyChartList.fromJson(Map<String, dynamic> json) => 
+    _$WeeklyChartListFromJson(json);
+  Map<String, dynamic> toJson() => _$WeeklyChartListToJson(this);
+}
+
+@JsonSerializable()
+class Chart {
+  @JsonKey(name: '#text')
+  final String text;
+  final String to;
+  final String from;
+  Chart({
+    this.text,
+    this.to,
+    this.from
+  });
+  factory Chart.fromJson(Map<String, dynamic> json) => 
+    _$ChartFromJson(json);
+  Map<String, dynamic> toJson() => _$ChartToJson(this);
 }

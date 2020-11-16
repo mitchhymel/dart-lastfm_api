@@ -3,7 +3,7 @@ part of clients;
 class LibraryClient extends BaseClient {
   LibraryClient(RequestMethod requestMethod) : super(requestMethod);
 
-  Future<LastFmResponse> getArtists(String user, {
+  Future<LastFmResponse<LibraryGetArtistsResponse>> getArtists(String user, {
     int limit=50, int page=1,
   }) async {
       
@@ -14,6 +14,10 @@ class LibraryClient extends BaseClient {
       PAGE: page.toString(),
     };
 
-    return makeRequest(params);
+    var resp = await makeRequest(params);
+
+    return resp.copyWith<LibraryGetArtistsResponse>(
+      data: LibraryGetArtistsResponse.fromJson(resp.data)
+    );
   }
 }
