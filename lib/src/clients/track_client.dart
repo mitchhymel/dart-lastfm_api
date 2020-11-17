@@ -19,7 +19,7 @@ class TrackClient extends BaseClient {
       TRACK: track,
     };
 
-    return makeRequest(params, authRequired: true, sign: true, isGet: true);
+    return makeRequest(params, authRequired: true, sign: true);
   }
 
   Future<LastFmResponse> getCorrection(String artist, String track) async {
