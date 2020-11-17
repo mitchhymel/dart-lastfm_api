@@ -31,7 +31,7 @@ main() async {
   client.loginWithSessionKey(SESSION_KEY);
 
   // Now you can make requests
-  LastFmResponse res = await client.artist.getCorrection(artist);
+  LastFmResponse res = await client.track.getInfo(track: track, artist:artist, userName: user);
   print(res.toPrettyJson());
   //printResp(res);
 }

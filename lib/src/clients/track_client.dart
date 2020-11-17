@@ -36,10 +36,6 @@ class TrackClient extends BaseClient {
   Future<LastFmResponse> getInfo({String artist, String track,
     String mbid, bool autoCorrect=false, String userName
   }) async {
-
-    if (userName != null) {
-      throw new UnimplementedError('This is not implemented because for some reason we get an empty response when username is supplied');
-    }
       
     var params = {
       METHOD: 'track.getInfo',
@@ -51,7 +47,7 @@ class TrackClient extends BaseClient {
     LastFmHelpers.addValueIfNotNull(params, TRACK, track);
     LastFmHelpers.addValueIfNotNull(params, USERNAME, userName);
 
-    return makeRequest(params);
+    return makeRequest(params, isGet: true);
   }
 
   Future<LastFmResponse> getSimilar({String artist, String track, 

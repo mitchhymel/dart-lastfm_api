@@ -303,6 +303,10 @@ class Track {
   final LastFmDate date;
   @JsonKey(name: 'image')
   final List<LastFmImage> images;
+  @JsonKey(name: 'userplaycount', fromJson: _intFromStringOrInt, toJson: _stringFromInt)
+  final int userPlayCount;
+  @JsonKey(name: 'userloved', fromJson: _boolFromStringOrMap)
+  final bool userLoved;
 
   bool get nowPlaying => attr != null && attr.nowPlaying;
   Track({
@@ -319,6 +323,8 @@ class Track {
     this.topTags,
     this.date,
     this.images,
+    this.userPlayCount,
+    this.userLoved,
   });
   factory Track.fromJson(Map<String, dynamic> json) => _$TrackFromJson(json);
   Map<String, dynamic> toJson() => _$TrackToJson(this);

@@ -400,6 +400,8 @@ Track _$TrackFromJson(Map<String, dynamic> json) {
         ?.map((e) =>
             e == null ? null : LastFmImage.fromJson(e as Map<String, dynamic>))
         ?.toList(),
+    userPlayCount: _intFromStringOrInt(json['userplaycount']),
+    userLoved: _boolFromStringOrMap(json['userloved']),
   );
 }
 
@@ -425,6 +427,8 @@ Map<String, dynamic> _$TrackToJson(Track instance) {
   writeNotNull('toptags', instance.topTags);
   writeNotNull('date', instance.date);
   writeNotNull('image', instance.images);
+  writeNotNull('userplaycount', _stringFromInt(instance.userPlayCount));
+  writeNotNull('userloved', instance.userLoved);
   return val;
 }
 
