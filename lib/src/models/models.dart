@@ -11,7 +11,7 @@ bool _stringToBool(String b) => b == null ? null : b == "1" || b == "true";
 String _stringFromBool(bool b) => b.toString(); 
 
 int _intFromStringOrInt(dynamic x) => x == null ? null : x is String ? _stringToInt(x) : x is int ? x : null;
-bool _boolFromStringOrMap(dynamic x) => x == null ? null : x is String ? _stringToBool(x) : x is Map<String, dynamic> ? _stringToBool(x['fulltrack']) : null;
+bool _boolFromStringOrMap(dynamic x) => x == null ? null : x is String ? _stringToBool(x) : x is Map<String, dynamic> ? _stringToBool(x['fulltrack']) : x is int ? x==1 : null;
 Artist _artistFromStringOrMap(dynamic x) => x == null ? null : x is String ? Artist(name: x) : x is Map<String, dynamic> ? Artist.fromJson(x) : null;
 DateTime _dateTimeFromStringOrInt(dynamic x) => x == null ? null : x is String ? DateTime.fromMillisecondsSinceEpoch(_stringToInt(x) * 1000) : x is int ? DateTime.fromMillisecondsSinceEpoch(x * 1000) : null;
 
@@ -527,12 +527,12 @@ class Wiki {
 
 @JsonSerializable(includeIfNull: false)
 class UserSession {
-  final String userName;
+  final String name;
   final String key;
   @JsonKey(fromJson: _boolFromStringOrMap)
   final bool subscriber;
   UserSession({
-    this.userName,
+    this.name,
     this.key,
     this.subscriber
   });

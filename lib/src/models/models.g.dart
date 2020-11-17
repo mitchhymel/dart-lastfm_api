@@ -686,7 +686,7 @@ Map<String, dynamic> _$WikiToJson(Wiki instance) {
 
 UserSession _$UserSessionFromJson(Map<String, dynamic> json) {
   return UserSession(
-    userName: json['userName'] as String,
+    name: json['name'] as String,
     key: json['key'] as String,
     subscriber: _boolFromStringOrMap(json['subscriber']),
   );
@@ -701,7 +701,7 @@ Map<String, dynamic> _$UserSessionToJson(UserSession instance) {
     }
   }
 
-  writeNotNull('userName', instance.userName);
+  writeNotNull('name', instance.name);
   writeNotNull('key', instance.key);
   writeNotNull('subscriber', instance.subscriber);
   return val;
