@@ -25,45 +25,32 @@ class LastFmResponseData {
   
   final Track track;
   final Tracks tracks;
-  @JsonKey(name: 'toptracks')
-  final Tracks topTracks;
-  @JsonKey(name: 'similartracks')
-  final Tracks similarTracks;
-  @JsonKey(name: 'lovedtracks')
-  final Tracks lovedTracks;
-  @JsonKey(name: 'recenttracks')
-  final Tracks recentTracks;
-  @JsonKey(name: 'weeklytrackchart')
-  final Tracks weeklyTrackChart;
+  final Tracks toptracks;
+  final Tracks similartracks;
+  final Tracks lovedtracks;
+  final Tracks recenttracks;
+  final Tracks weeklytrackchart;
 
-  @JsonKey(name: 'taggings')
   final Taggings taggings;
 
   final Artist artist;
   final Artists artists;
-  @JsonKey(name: 'topartists')
-  final Artists topArtists;
-  @JsonKey(name: 'similarartists')
-  final Similar similarArtists;
-  @JsonKey(name: 'weeklyartistchart')
-  final Artists weeklyArtistChart;
+  final Artists topartists;
+  final Artists similarartists;
+  final Artists weeklyartistchart;
 
   final Album album;
   final Albums albums;
-  @JsonKey(name: 'topalbums')
-  final Albums topAlbums;
-  @JsonKey(name: 'weeklyalbumchart')
-  final Albums weeklyAlbumChart;
+  final Albums topalbums;
+  final Albums weeklyalbumchart;
 
   final Tag tag;
   final Tags tags;
-  @JsonKey(name: 'toptags')
-  final Tags topTags;
+  final Tags toptags;
 
   final Results results;
   final Corrections corrections;
-  @JsonKey(name: 'weeklychartlist')
-  final WeeklyChartList weeklyChartList;
+  final Charts weeklychartlist;
 
   LastFmResponseData({
     this.friends,
@@ -71,27 +58,27 @@ class LastFmResponseData {
     this.session,
     this.album,
     this.albums,
-    this.topAlbums,
+    this.topalbums,
     this.artist,
     this.artists,
-    this.topArtists,
-    this.similarArtists,
+    this.topartists,
+    this.similarartists,
     this.tag,
     this.tags,
-    this.topTags,
+    this.toptags,
     this.track,
     this.tracks,
-    this.topTracks,
-    this.similarTracks,
-    this.lovedTracks,
-    this.recentTracks,
+    this.toptracks,
+    this.similartracks,
+    this.lovedtracks,
+    this.recenttracks,
     this.results,
     this.corrections,
     this.taggings,
-    this.weeklyChartList,
-    this.weeklyAlbumChart,
-    this.weeklyArtistChart,
-    this.weeklyTrackChart,
+    this.weeklychartlist,
+    this.weeklyalbumchart,
+    this.weeklyartistchart,
+    this.weeklytrackchart,
   });
 
   factory LastFmResponseData.fromJson(Map<String, dynamic> json) =>
@@ -198,11 +185,11 @@ class OpenSearchQuery {
 @JsonSerializable(includeIfNull: false)
 class Albums {
   @JsonKey(name: 'album')
-  final List<Album> albums;
+  final List<Album> items;
   @JsonKey(name: '@attr')
   final Attr attr;
   Albums({
-    this.albums,
+    this.items,
     this.attr,
   });
   factory Albums.fromJson(Map<String, dynamic> json) =>
@@ -224,6 +211,8 @@ class Album {
   final int listeners;
   @JsonKey(fromJson: _intFromStringOrInt, toJson: _stringFromInt)
   final int playcount;
+  @JsonKey(fromJson: _intFromStringOrInt, toJson: _stringFromInt)
+  final int userplaycount;
   final Tracks tracks;
   final Tags tags;
   final Wiki wiki;
@@ -239,6 +228,7 @@ class Album {
     this.image,
     this.listeners,
     this.playcount,
+    this.userplaycount,
     this.tracks,
     this.tags,
     this.wiki,
@@ -267,11 +257,11 @@ class LastFmImage {
 @JsonSerializable(includeIfNull: false)
 class Tracks {
   @JsonKey(name: 'track')
-  final List<Track> tracks;
+  final List<Track> items;
   @JsonKey(name: '@attr')
   final Attr attr;
   Tracks({
-    this.tracks,
+    this.items,
     this.attr,
   });
   factory Tracks.fromJson(Map<String, dynamic> json) => _$TracksFromJson(json);
@@ -295,20 +285,19 @@ class Track {
   final Artist artist;
   @JsonKey(fromJson: _intFromStringOrInt, toJson: _stringFromInt)
   final int listeners;
-  @JsonKey(name: 'playcount', fromJson: _intFromStringOrInt, toJson: _stringFromInt)
+  @JsonKey(fromJson: _intFromStringOrInt, toJson: _stringFromInt)
   final int playcount;
   final Album album;
-  @JsonKey(name: 'toptags')
-  final Tags topTags;
+  final Tags toptags;
   final LastFmDate date;
   @JsonKey(name: 'image')
   final List<LastFmImage> images;
-  @JsonKey(name: 'userplaycount', fromJson: _intFromStringOrInt, toJson: _stringFromInt)
-  final int userPlayCount;
-  @JsonKey(name: 'userloved', fromJson: _boolFromStringOrMap)
-  final bool userLoved;
+  @JsonKey(fromJson: _intFromStringOrInt, toJson: _stringFromInt)
+  final int userplaycount;
+  @JsonKey(fromJson: _boolFromStringOrMap)
+  final bool userloved;
 
-  bool get nowPlaying => attr != null && attr.nowPlaying;
+  bool get nowPlaying => attr != null && attr.nowplaying;
   Track({
     this.name,
     this.mbid,
@@ -320,11 +309,11 @@ class Track {
     this.listeners,
     this.playcount,
     this.album,
-    this.topTags,
+    this.toptags,
     this.date,
     this.images,
-    this.userPlayCount,
-    this.userLoved,
+    this.userplaycount,
+    this.userloved,
   });
   factory Track.fromJson(Map<String, dynamic> json) => _$TrackFromJson(json);
   Map<String, dynamic> toJson() => _$TrackToJson(this);
@@ -359,8 +348,8 @@ class Attr {
   final String album;
   final String artistcorrected;
   final String trackcorrected;
-  @JsonKey(name: 'nowplaying', fromJson: _boolFromStringOrMap)
-  final bool nowPlaying;
+  @JsonKey(fromJson: _boolFromStringOrMap)
+  final bool nowplaying;
   final String from;
   final String to;
   Attr({
@@ -381,7 +370,7 @@ class Attr {
     this.trackcorrected,
     this.position,
     this.track,
-    this.nowPlaying,
+    this.nowplaying,
     this.from,
     this.to,
   });
@@ -410,11 +399,11 @@ class Streamable {
 @JsonSerializable(includeIfNull: false)
 class Artists {
   @JsonKey(name: 'artist')
-  final List<Artist> artists;
+  final List<Artist> items;
   @JsonKey(name: '@attr')
   final Attr attr;
   Artists({
-    this.artists,
+    this.items,
     this.attr,
   });
   factory Artists.fromJson(Map<String, dynamic> json) => 
@@ -430,19 +419,20 @@ class Artist {
   final String mbid;
   final String url;
   final List<LastFmImage> image;
-  final String streamable;
-  final String ontour;
+  @JsonKey(fromJson: _boolFromStringOrMap)
+  final bool streamable;
+  @JsonKey(fromJson: _boolFromStringOrMap)
+  final bool ontour;
   final Stats stats;
-  final Similar similar;
+  final Artists similar;
   final Tags tags;
-  @JsonKey(name: 'bio')
   final Wiki bio;
   @JsonKey(fromJson: _stringToDouble, toJson: _stringFromDouble)
   final double match;
   @JsonKey(fromJson: _intFromStringOrInt, toJson: _stringFromInt)
   final int listeners;
-  @JsonKey(name: 'playcount', fromJson: _intFromStringOrInt, toJson: _stringFromInt)
-  final int playCount;
+  @JsonKey(fromJson: _intFromStringOrInt, toJson: _stringFromInt)
+  final int playcount;
   @JsonKey(name: '@attr')
   final Attr attr;
   @JsonKey(name: '#text')
@@ -461,7 +451,7 @@ class Artist {
     this.bio,
     this.match,
     this.listeners,
-    this.playCount,
+    this.playcount,
     this.attr,
     this.text,
   });
@@ -475,11 +465,11 @@ class Artist {
 @JsonSerializable(includeIfNull: false)
 class Tags {
   @JsonKey(name: 'tag')
-  final List<Tag> tags;
+  final List<Tag> items;
   @JsonKey(name: '@attr')
   final Attr attr;
   Tags({
-    this.tags,
+    this.items,
     this.attr,
   });
   factory Tags.fromJson(Map<String, dynamic> json) => _$TagsFromJson(json);
@@ -559,30 +549,16 @@ class Stats {
   final int listeners;
   @JsonKey(fromJson: _intFromStringOrInt, toJson: _stringFromInt)
   final int playcount;
+  @JsonKey(fromJson: _intFromStringOrInt, toJson: _stringFromInt)
+  final int userplaycount;
   Stats({
     this.listeners,
-    this.playcount
+    this.playcount,
+    this.userplaycount,
   });
   factory Stats.fromJson(Map<String, dynamic> json) => 
     _$StatsFromJson(json);
   Map<String, dynamic> toJson() => _$StatsToJson(this);
-  @override
-  String toString() => jsonEncode(toJson);
-}
-
-@JsonSerializable(includeIfNull: false)
-class Similar {
-  @JsonKey(name: 'artist')
-  final List<Artist> artists;
-  @JsonKey(name: '@attr')
-  final Attr attr;
-  Similar({
-    this.artists,
-    this.attr,
-  });
-  factory Similar.fromJson(Map<String, dynamic> json) => 
-    _$SimilarFromJson(json);
-  Map<String, dynamic> toJson() => _$SimilarToJson(this);
   @override
   String toString() => jsonEncode(toJson);
 }
@@ -619,18 +595,18 @@ class Link {
 }
 
 @JsonSerializable(includeIfNull: false)
-class WeeklyChartList {
+class Charts {
   @JsonKey(name: 'chart')
-  final List<Chart> charts;
+  final List<Chart> items;
   @JsonKey(name: '@attr')
   final Attr attr;
-  WeeklyChartList({
-    this.charts,
+  Charts({
+    this.items,
     this.attr
   });
-  factory WeeklyChartList.fromJson(Map<String, dynamic> json) => 
-    _$WeeklyChartListFromJson(json);
-  Map<String, dynamic> toJson() => _$WeeklyChartListToJson(this);
+  factory Charts.fromJson(Map<String, dynamic> json) => 
+    _$ChartsFromJson(json);
+  Map<String, dynamic> toJson() => _$ChartsToJson(this);
   @override
   String toString() => jsonEncode(toJson);
 }
@@ -656,11 +632,11 @@ class Chart {
 @JsonSerializable(includeIfNull: false)
 class Users {
   @JsonKey(name: 'user')
-  final List<User> users;
+  final List<User> items;
   @JsonKey(name: '@attr')
   final Attr attr;
   Users({
-    this.users,
+    this.items,
     this.attr,
   });
   factory Users.fromJson(Map<String, dynamic> json) => 
@@ -674,8 +650,8 @@ class Users {
 class User {
 
   final String playlists;
-  @JsonKey(name: 'playcount', fromJson: _intFromStringOrInt, toJson: _stringFromInt)
-  final int playCount;
+  @JsonKey(fromJson: _intFromStringOrInt, toJson: _stringFromInt)
+  final int playcount;
   @JsonKey(fromJson: _boolFromStringOrMap)
   final bool subscriber;
   final String name;
@@ -693,7 +669,7 @@ class User {
   
   User({
     this.playlists,
-    this.playCount,
+    this.playcount,
     this.subscriber,
     this.name,
     this.country,
@@ -746,11 +722,15 @@ class LastFmDate {
 @JsonSerializable(includeIfNull: false)
 class Taggings {
   final Tracks tracks;
+  final Artists artists;
+  final Albums albums;
   @JsonKey(name: '@attr')
   final Attr attr;
   Taggings({
     this.tracks,
     this.attr,
+    this.artists,
+    this.albums,
   });
   factory Taggings.fromJson(Map<String, dynamic> json) => 
     _$TaggingsFromJson(json);

@@ -23,7 +23,7 @@ LastFmResponseData _$LastFmResponseDataFromJson(Map<String, dynamic> json) {
     albums: json['albums'] == null
         ? null
         : Albums.fromJson(json['albums'] as Map<String, dynamic>),
-    topAlbums: json['topalbums'] == null
+    topalbums: json['topalbums'] == null
         ? null
         : Albums.fromJson(json['topalbums'] as Map<String, dynamic>),
     artist: json['artist'] == null
@@ -32,19 +32,19 @@ LastFmResponseData _$LastFmResponseDataFromJson(Map<String, dynamic> json) {
     artists: json['artists'] == null
         ? null
         : Artists.fromJson(json['artists'] as Map<String, dynamic>),
-    topArtists: json['topartists'] == null
+    topartists: json['topartists'] == null
         ? null
         : Artists.fromJson(json['topartists'] as Map<String, dynamic>),
-    similarArtists: json['similarartists'] == null
+    similarartists: json['similarartists'] == null
         ? null
-        : Similar.fromJson(json['similarartists'] as Map<String, dynamic>),
+        : Artists.fromJson(json['similarartists'] as Map<String, dynamic>),
     tag: json['tag'] == null
         ? null
         : Tag.fromJson(json['tag'] as Map<String, dynamic>),
     tags: json['tags'] == null
         ? null
         : Tags.fromJson(json['tags'] as Map<String, dynamic>),
-    topTags: json['toptags'] == null
+    toptags: json['toptags'] == null
         ? null
         : Tags.fromJson(json['toptags'] as Map<String, dynamic>),
     track: json['track'] == null
@@ -53,16 +53,16 @@ LastFmResponseData _$LastFmResponseDataFromJson(Map<String, dynamic> json) {
     tracks: json['tracks'] == null
         ? null
         : Tracks.fromJson(json['tracks'] as Map<String, dynamic>),
-    topTracks: json['toptracks'] == null
+    toptracks: json['toptracks'] == null
         ? null
         : Tracks.fromJson(json['toptracks'] as Map<String, dynamic>),
-    similarTracks: json['similartracks'] == null
+    similartracks: json['similartracks'] == null
         ? null
         : Tracks.fromJson(json['similartracks'] as Map<String, dynamic>),
-    lovedTracks: json['lovedtracks'] == null
+    lovedtracks: json['lovedtracks'] == null
         ? null
         : Tracks.fromJson(json['lovedtracks'] as Map<String, dynamic>),
-    recentTracks: json['recenttracks'] == null
+    recenttracks: json['recenttracks'] == null
         ? null
         : Tracks.fromJson(json['recenttracks'] as Map<String, dynamic>),
     results: json['results'] == null
@@ -74,17 +74,16 @@ LastFmResponseData _$LastFmResponseDataFromJson(Map<String, dynamic> json) {
     taggings: json['taggings'] == null
         ? null
         : Taggings.fromJson(json['taggings'] as Map<String, dynamic>),
-    weeklyChartList: json['weeklychartlist'] == null
+    weeklychartlist: json['weeklychartlist'] == null
         ? null
-        : WeeklyChartList.fromJson(
-            json['weeklychartlist'] as Map<String, dynamic>),
-    weeklyAlbumChart: json['weeklyalbumchart'] == null
+        : Charts.fromJson(json['weeklychartlist'] as Map<String, dynamic>),
+    weeklyalbumchart: json['weeklyalbumchart'] == null
         ? null
         : Albums.fromJson(json['weeklyalbumchart'] as Map<String, dynamic>),
-    weeklyArtistChart: json['weeklyartistchart'] == null
+    weeklyartistchart: json['weeklyartistchart'] == null
         ? null
         : Artists.fromJson(json['weeklyartistchart'] as Map<String, dynamic>),
-    weeklyTrackChart: json['weeklytrackchart'] == null
+    weeklytrackchart: json['weeklytrackchart'] == null
         ? null
         : Tracks.fromJson(json['weeklytrackchart'] as Map<String, dynamic>),
   );
@@ -104,27 +103,27 @@ Map<String, dynamic> _$LastFmResponseDataToJson(LastFmResponseData instance) {
   writeNotNull('user', instance.user);
   writeNotNull('track', instance.track);
   writeNotNull('tracks', instance.tracks);
-  writeNotNull('toptracks', instance.topTracks);
-  writeNotNull('similartracks', instance.similarTracks);
-  writeNotNull('lovedtracks', instance.lovedTracks);
-  writeNotNull('recenttracks', instance.recentTracks);
-  writeNotNull('weeklytrackchart', instance.weeklyTrackChart);
+  writeNotNull('toptracks', instance.toptracks);
+  writeNotNull('similartracks', instance.similartracks);
+  writeNotNull('lovedtracks', instance.lovedtracks);
+  writeNotNull('recenttracks', instance.recenttracks);
+  writeNotNull('weeklytrackchart', instance.weeklytrackchart);
   writeNotNull('taggings', instance.taggings);
   writeNotNull('artist', instance.artist);
   writeNotNull('artists', instance.artists);
-  writeNotNull('topartists', instance.topArtists);
-  writeNotNull('similarartists', instance.similarArtists);
-  writeNotNull('weeklyartistchart', instance.weeklyArtistChart);
+  writeNotNull('topartists', instance.topartists);
+  writeNotNull('similarartists', instance.similarartists);
+  writeNotNull('weeklyartistchart', instance.weeklyartistchart);
   writeNotNull('album', instance.album);
   writeNotNull('albums', instance.albums);
-  writeNotNull('topalbums', instance.topAlbums);
-  writeNotNull('weeklyalbumchart', instance.weeklyAlbumChart);
+  writeNotNull('topalbums', instance.topalbums);
+  writeNotNull('weeklyalbumchart', instance.weeklyalbumchart);
   writeNotNull('tag', instance.tag);
   writeNotNull('tags', instance.tags);
-  writeNotNull('toptags', instance.topTags);
+  writeNotNull('toptags', instance.toptags);
   writeNotNull('results', instance.results);
   writeNotNull('corrections', instance.corrections);
-  writeNotNull('weeklychartlist', instance.weeklyChartList);
+  writeNotNull('weeklychartlist', instance.weeklychartlist);
   return val;
 }
 
@@ -251,7 +250,7 @@ Map<String, dynamic> _$OpenSearchQueryToJson(OpenSearchQuery instance) {
 
 Albums _$AlbumsFromJson(Map<String, dynamic> json) {
   return Albums(
-    albums: (json['album'] as List)
+    items: (json['album'] as List)
         ?.map(
             (e) => e == null ? null : Album.fromJson(e as Map<String, dynamic>))
         ?.toList(),
@@ -270,7 +269,7 @@ Map<String, dynamic> _$AlbumsToJson(Albums instance) {
     }
   }
 
-  writeNotNull('album', instance.albums);
+  writeNotNull('album', instance.items);
   writeNotNull('@attr', instance.attr);
   return val;
 }
@@ -287,6 +286,7 @@ Album _$AlbumFromJson(Map<String, dynamic> json) {
         ?.toList(),
     listeners: _intFromStringOrInt(json['listeners']),
     playcount: _intFromStringOrInt(json['playcount']),
+    userplaycount: _intFromStringOrInt(json['userplaycount']),
     tracks: json['tracks'] == null
         ? null
         : Tracks.fromJson(json['tracks'] as Map<String, dynamic>),
@@ -319,6 +319,7 @@ Map<String, dynamic> _$AlbumToJson(Album instance) {
   writeNotNull('image', instance.image);
   writeNotNull('listeners', _stringFromInt(instance.listeners));
   writeNotNull('playcount', _stringFromInt(instance.playcount));
+  writeNotNull('userplaycount', _stringFromInt(instance.userplaycount));
   writeNotNull('tracks', instance.tracks);
   writeNotNull('tags', instance.tags);
   writeNotNull('wiki', instance.wiki);
@@ -350,7 +351,7 @@ Map<String, dynamic> _$LastFmImageToJson(LastFmImage instance) {
 
 Tracks _$TracksFromJson(Map<String, dynamic> json) {
   return Tracks(
-    tracks: (json['track'] as List)
+    items: (json['track'] as List)
         ?.map(
             (e) => e == null ? null : Track.fromJson(e as Map<String, dynamic>))
         ?.toList(),
@@ -369,7 +370,7 @@ Map<String, dynamic> _$TracksToJson(Tracks instance) {
     }
   }
 
-  writeNotNull('track', instance.tracks);
+  writeNotNull('track', instance.items);
   writeNotNull('@attr', instance.attr);
   return val;
 }
@@ -390,7 +391,7 @@ Track _$TrackFromJson(Map<String, dynamic> json) {
     album: json['album'] == null
         ? null
         : Album.fromJson(json['album'] as Map<String, dynamic>),
-    topTags: json['toptags'] == null
+    toptags: json['toptags'] == null
         ? null
         : Tags.fromJson(json['toptags'] as Map<String, dynamic>),
     date: json['date'] == null
@@ -400,8 +401,8 @@ Track _$TrackFromJson(Map<String, dynamic> json) {
         ?.map((e) =>
             e == null ? null : LastFmImage.fromJson(e as Map<String, dynamic>))
         ?.toList(),
-    userPlayCount: _intFromStringOrInt(json['userplaycount']),
-    userLoved: _boolFromStringOrMap(json['userloved']),
+    userplaycount: _intFromStringOrInt(json['userplaycount']),
+    userloved: _boolFromStringOrMap(json['userloved']),
   );
 }
 
@@ -424,11 +425,11 @@ Map<String, dynamic> _$TrackToJson(Track instance) {
   writeNotNull('listeners', _stringFromInt(instance.listeners));
   writeNotNull('playcount', _stringFromInt(instance.playcount));
   writeNotNull('album', instance.album);
-  writeNotNull('toptags', instance.topTags);
+  writeNotNull('toptags', instance.toptags);
   writeNotNull('date', instance.date);
   writeNotNull('image', instance.images);
-  writeNotNull('userplaycount', _stringFromInt(instance.userPlayCount));
-  writeNotNull('userloved', instance.userLoved);
+  writeNotNull('userplaycount', _stringFromInt(instance.userplaycount));
+  writeNotNull('userloved', instance.userloved);
   return val;
 }
 
@@ -451,7 +452,7 @@ Attr _$AttrFromJson(Map<String, dynamic> json) {
     trackcorrected: json['trackcorrected'] as String,
     position: _intFromStringOrInt(json['position']),
     track: json['track'] as String,
-    nowPlaying: _boolFromStringOrMap(json['nowplaying']),
+    nowplaying: _boolFromStringOrMap(json['nowplaying']),
     from: json['from'] as String,
     to: json['to'] as String,
   );
@@ -483,7 +484,7 @@ Map<String, dynamic> _$AttrToJson(Attr instance) {
   writeNotNull('album', instance.album);
   writeNotNull('artistcorrected', instance.artistcorrected);
   writeNotNull('trackcorrected', instance.trackcorrected);
-  writeNotNull('nowplaying', instance.nowPlaying);
+  writeNotNull('nowplaying', instance.nowplaying);
   writeNotNull('from', instance.from);
   writeNotNull('to', instance.to);
   return val;
@@ -512,7 +513,7 @@ Map<String, dynamic> _$StreamableToJson(Streamable instance) {
 
 Artists _$ArtistsFromJson(Map<String, dynamic> json) {
   return Artists(
-    artists: (json['artist'] as List)
+    items: (json['artist'] as List)
         ?.map((e) =>
             e == null ? null : Artist.fromJson(e as Map<String, dynamic>))
         ?.toList(),
@@ -531,7 +532,7 @@ Map<String, dynamic> _$ArtistsToJson(Artists instance) {
     }
   }
 
-  writeNotNull('artist', instance.artists);
+  writeNotNull('artist', instance.items);
   writeNotNull('@attr', instance.attr);
   return val;
 }
@@ -545,14 +546,14 @@ Artist _$ArtistFromJson(Map<String, dynamic> json) {
         ?.map((e) =>
             e == null ? null : LastFmImage.fromJson(e as Map<String, dynamic>))
         ?.toList(),
-    streamable: json['streamable'] as String,
-    ontour: json['ontour'] as String,
+    streamable: _boolFromStringOrMap(json['streamable']),
+    ontour: _boolFromStringOrMap(json['ontour']),
     stats: json['stats'] == null
         ? null
         : Stats.fromJson(json['stats'] as Map<String, dynamic>),
     similar: json['similar'] == null
         ? null
-        : Similar.fromJson(json['similar'] as Map<String, dynamic>),
+        : Artists.fromJson(json['similar'] as Map<String, dynamic>),
     tags: json['tags'] == null
         ? null
         : Tags.fromJson(json['tags'] as Map<String, dynamic>),
@@ -561,7 +562,7 @@ Artist _$ArtistFromJson(Map<String, dynamic> json) {
         : Wiki.fromJson(json['bio'] as Map<String, dynamic>),
     match: _stringToDouble(json['match'] as String),
     listeners: _intFromStringOrInt(json['listeners']),
-    playCount: _intFromStringOrInt(json['playcount']),
+    playcount: _intFromStringOrInt(json['playcount']),
     attr: json['@attr'] == null
         ? null
         : Attr.fromJson(json['@attr'] as Map<String, dynamic>),
@@ -590,7 +591,7 @@ Map<String, dynamic> _$ArtistToJson(Artist instance) {
   writeNotNull('bio', instance.bio);
   writeNotNull('match', _stringFromDouble(instance.match));
   writeNotNull('listeners', _stringFromInt(instance.listeners));
-  writeNotNull('playcount', _stringFromInt(instance.playCount));
+  writeNotNull('playcount', _stringFromInt(instance.playcount));
   writeNotNull('@attr', instance.attr);
   writeNotNull('#text', instance.text);
   return val;
@@ -598,7 +599,7 @@ Map<String, dynamic> _$ArtistToJson(Artist instance) {
 
 Tags _$TagsFromJson(Map<String, dynamic> json) {
   return Tags(
-    tags: (json['tag'] as List)
+    items: (json['tag'] as List)
         ?.map((e) => e == null ? null : Tag.fromJson(e as Map<String, dynamic>))
         ?.toList(),
     attr: json['@attr'] == null
@@ -616,7 +617,7 @@ Map<String, dynamic> _$TagsToJson(Tags instance) {
     }
   }
 
-  writeNotNull('tag', instance.tags);
+  writeNotNull('tag', instance.items);
   writeNotNull('@attr', instance.attr);
   return val;
 }
@@ -710,6 +711,7 @@ Stats _$StatsFromJson(Map<String, dynamic> json) {
   return Stats(
     listeners: _intFromStringOrInt(json['listeners']),
     playcount: _intFromStringOrInt(json['playcount']),
+    userplaycount: _intFromStringOrInt(json['userplaycount']),
   );
 }
 
@@ -724,32 +726,7 @@ Map<String, dynamic> _$StatsToJson(Stats instance) {
 
   writeNotNull('listeners', _stringFromInt(instance.listeners));
   writeNotNull('playcount', _stringFromInt(instance.playcount));
-  return val;
-}
-
-Similar _$SimilarFromJson(Map<String, dynamic> json) {
-  return Similar(
-    artists: (json['artist'] as List)
-        ?.map((e) =>
-            e == null ? null : Artist.fromJson(e as Map<String, dynamic>))
-        ?.toList(),
-    attr: json['@attr'] == null
-        ? null
-        : Attr.fromJson(json['@attr'] as Map<String, dynamic>),
-  );
-}
-
-Map<String, dynamic> _$SimilarToJson(Similar instance) {
-  final val = <String, dynamic>{};
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('artist', instance.artists);
-  writeNotNull('@attr', instance.attr);
+  writeNotNull('userplaycount', _stringFromInt(instance.userplaycount));
   return val;
 }
 
@@ -797,9 +774,9 @@ Map<String, dynamic> _$LinkToJson(Link instance) {
   return val;
 }
 
-WeeklyChartList _$WeeklyChartListFromJson(Map<String, dynamic> json) {
-  return WeeklyChartList(
-    charts: (json['chart'] as List)
+Charts _$ChartsFromJson(Map<String, dynamic> json) {
+  return Charts(
+    items: (json['chart'] as List)
         ?.map(
             (e) => e == null ? null : Chart.fromJson(e as Map<String, dynamic>))
         ?.toList(),
@@ -809,7 +786,7 @@ WeeklyChartList _$WeeklyChartListFromJson(Map<String, dynamic> json) {
   );
 }
 
-Map<String, dynamic> _$WeeklyChartListToJson(WeeklyChartList instance) {
+Map<String, dynamic> _$ChartsToJson(Charts instance) {
   final val = <String, dynamic>{};
 
   void writeNotNull(String key, dynamic value) {
@@ -818,7 +795,7 @@ Map<String, dynamic> _$WeeklyChartListToJson(WeeklyChartList instance) {
     }
   }
 
-  writeNotNull('chart', instance.charts);
+  writeNotNull('chart', instance.items);
   writeNotNull('@attr', instance.attr);
   return val;
 }
@@ -848,7 +825,7 @@ Map<String, dynamic> _$ChartToJson(Chart instance) {
 
 Users _$UsersFromJson(Map<String, dynamic> json) {
   return Users(
-    users: (json['user'] as List)
+    items: (json['user'] as List)
         ?.map(
             (e) => e == null ? null : User.fromJson(e as Map<String, dynamic>))
         ?.toList(),
@@ -867,7 +844,7 @@ Map<String, dynamic> _$UsersToJson(Users instance) {
     }
   }
 
-  writeNotNull('user', instance.users);
+  writeNotNull('user', instance.items);
   writeNotNull('@attr', instance.attr);
   return val;
 }
@@ -875,7 +852,7 @@ Map<String, dynamic> _$UsersToJson(Users instance) {
 User _$UserFromJson(Map<String, dynamic> json) {
   return User(
     playlists: json['playlists'] as String,
-    playCount: _intFromStringOrInt(json['playcount']),
+    playcount: _intFromStringOrInt(json['playcount']),
     subscriber: _boolFromStringOrMap(json['subscriber']),
     name: json['name'] as String,
     country: json['country'] as String,
@@ -905,7 +882,7 @@ Map<String, dynamic> _$UserToJson(User instance) {
   }
 
   writeNotNull('playlists', instance.playlists);
-  writeNotNull('playcount', _stringFromInt(instance.playCount));
+  writeNotNull('playcount', _stringFromInt(instance.playcount));
   writeNotNull('subscriber', instance.subscriber);
   writeNotNull('name', instance.name);
   writeNotNull('country', instance.country);
@@ -968,6 +945,12 @@ Taggings _$TaggingsFromJson(Map<String, dynamic> json) {
     attr: json['@attr'] == null
         ? null
         : Attr.fromJson(json['@attr'] as Map<String, dynamic>),
+    artists: json['artists'] == null
+        ? null
+        : Artists.fromJson(json['artists'] as Map<String, dynamic>),
+    albums: json['albums'] == null
+        ? null
+        : Albums.fromJson(json['albums'] as Map<String, dynamic>),
   );
 }
 
@@ -981,6 +964,8 @@ Map<String, dynamic> _$TaggingsToJson(Taggings instance) {
   }
 
   writeNotNull('tracks', instance.tracks);
+  writeNotNull('artists', instance.artists);
+  writeNotNull('albums', instance.albums);
   writeNotNull('@attr', instance.attr);
   return val;
 }
