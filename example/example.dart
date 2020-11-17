@@ -6,7 +6,7 @@ import 'dart:io';
 
 var logger = new LastFmConsoleLogger();
 var client = new LastFmApi(API_KEY, SHARED_SECRET, USER_AGENT,
-  //logger: logger,
+  logger: logger,
 );
 
 String artist = 'Of Machines';
@@ -31,7 +31,7 @@ main() async {
   client.loginWithSessionKey(SESSION_KEY);
 
   // Now you can make requests
-  LastFmResponse res = await client.track.getInfo(track: track, artist:artist, userName: user);
+  LastFmResponse res = await client.track.addTags('Emery Heights', 'Clarity', ['phc']);
   print(res.toPrettyJson());
   //printResp(res);
 }
