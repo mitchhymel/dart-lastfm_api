@@ -31,7 +31,7 @@ main() async {
   client.loginWithSessionKey(SESSION_KEY);
 
   // Now you can make requests
-  LastFmResponse res = await client.track.addTags('Emery Heights', 'Clarity', ['phc']);
+  LastFmResponse res = await client.auth.getSession(SESSION_KEY);
   print(res.toPrettyJson());
   //printResp(res);
 }

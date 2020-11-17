@@ -1,5 +1,6 @@
 
 import 'dart:convert';
+import 'dart:core';
 
 import 'package:lastfm/lastfm_api.dart';
 import 'package:lastfm/src/clients/clients.dart';
@@ -71,10 +72,6 @@ class LastFmApi {
     bool sign, bool authRequired, bool isGet) async {
     
     params.putIfAbsent('api_key', () => apiKey);
-
-    if (useJson) {
-      params.putIfAbsent(_formatStr, () => _jsonStr);
-    }
     
     if (authRequired) {
       if (sessionKey == null) {
@@ -164,20 +161,26 @@ class LastFmApi {
     var keysInAlphabeticalOrder = params.keys.toList();
     keysInAlphabeticalOrder.sort((a, b) => a.compareTo(b));
     String toSign = keysInAlphabeticalOrder.map((e) => '${e}${params[e]}').join();
-    String readtyToHash = '${toSign}${sharedSecret}';
+    String readyToHash = '$toSign$sharedSecret';
 
-    String hashed = md5.convert(utf8.encode(readtyToHash)).toString();
+    String hashed = md5.convert(utf8.encode(readyToHash)).toString();
     return hashed;
   }
 
   String _getParamsAsBody(Map<String, String> params, {
     bool sign=false, bool authRequired=false}) {
 
-    String combined = params.keys.toList().map((e) => '${e}=${params[e]}').join('&');
+    var keysInAlphabeticalOrder = params.keys.toList();
+    keysInAlphabeticalOrder.sort((a, b) => a.compareTo(b));
+    String combined = keysInAlphabeticalOrder.toList().map((e) => '${e}=${Uri.encodeQueryComponent(params[e])}').join('&');
     
     if (sign || authRequired) {
       String apiSig = _getSignature(params);
       combined = '$combined&api_sig=$apiSig';
+    }
+
+    if (useJson) {
+      combined = '$combined&$_formatStr=$_jsonStr';
     }
 
     return combined;
