@@ -26,6 +26,7 @@ class LastFmResponse {
   Map<String, dynamic> toJson() => _$LastFmResponseToJson(this);
 
   bool isSuccess() => status == 200 && data != null && error == null;
+  bool hasError() => !isSuccess();
 
   String toPrettyJson() {
     return LastFmHelpers.getPrettyStringFromMap(this.toJson());

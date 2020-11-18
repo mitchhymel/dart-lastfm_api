@@ -315,6 +315,39 @@ class Track {
     this.userplaycount,
     this.userloved,
   });
+  Track copyWith({
+    String name,
+    String mbid,
+    String url,
+    int duration,
+    Attr attr,
+    bool streamable,
+    Artist artist,
+    int listeners,
+    int playcount,
+    Album album,
+    Tags toptags,
+    LastFmDate date,
+    List<LastFmImage> images,
+    int userplaycount,
+    bool userloved,
+  }) => Track(
+    name: name ?? this.name,
+    mbid: mbid ?? this.mbid,
+    url: url ?? this.url,
+    duration: duration ?? this.duration,
+    attr: attr ?? this.attr,
+    streamable: streamable ?? this.streamable,
+    artist: artist ?? this.artist,
+    listeners: listeners ?? this.listeners,
+    playcount: playcount ?? this.playcount,
+    album: album ?? this.album,
+    toptags: toptags ?? this.toptags,
+    date: date ?? this.date,
+    images: images ?? this.images,
+    userplaycount: userplaycount ?? this.userplaycount,
+    userloved: userloved ?? this.userloved,
+  );
   factory Track.fromJson(Map<String, dynamic> json) => _$TrackFromJson(json);
   Map<String, dynamic> toJson() => _$TrackToJson(this);
 }

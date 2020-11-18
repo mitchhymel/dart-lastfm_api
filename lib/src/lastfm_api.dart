@@ -72,6 +72,9 @@ class LastFmApi {
     bool sign, bool authRequired, bool isGet) async {
     
     params.putIfAbsent('api_key', () => apiKey);
+    if (isGet) {
+      params.putIfAbsent(_formatStr, () => _jsonStr);
+    }
     
     if (authRequired) {
       if (sessionKey == null) {
