@@ -5,7 +5,8 @@ import 'secret.dart';
 import 'dart:io';
 
 var logger = new LastFmConsoleLogger();
-var client = new LastFmApi(API_KEY, SHARED_SECRET, USER_AGENT,
+var client = new LastFmApi(API_KEY, SHARED_SECRET,
+  userAgent:  USER_AGENT,
   logger: logger,
 );
 
@@ -132,7 +133,8 @@ testUser() async {
 }
 
 LastFmApi getClient(String fileToLogTo) {
-  var client = new LastFmApi(API_KEY, SHARED_SECRET, USER_AGENT, 
+  var client = new LastFmApi(API_KEY, SHARED_SECRET,
+    userAgent: USER_AGENT,
     logger: LastFmConsoleLogger(),
     //logger: new LogToFileLogger(fileToLogTo)
   );

@@ -52,8 +52,8 @@ class LastFmApi {
   static final String AUTHORITY = 'ws.audioscrobbler.com';
   static final String PATH = '/2.0';
 
-  LastFmApi(this.apiKey, this.sharedSecret, this.userAgent, {
-    this.useJson=true, this.logger, this.sessionKey
+  LastFmApi(this.apiKey, this.sharedSecret, {
+    this.userAgent, this.useJson=true, this.logger, this.sessionKey
   }) {
 
     _album = new AlbumClient(makeRequest);
@@ -86,9 +86,17 @@ class LastFmApi {
     var uri = new Uri.https(AUTHORITY, PATH, isGet ? params : null);
 
     var headers = {
-      'User-Agent': userAgent,
       'Accept': 'application/json'
     };
+
+    if (userAgent != null) {
+      // on flutter web, we are not allowed to set user agent, and if we try to
+      // the logs will be flooed with error messages indicating such.
+      // Making userAgent optional here with the assumption that if caller
+      // is using this on web, then they won't pass in a userAgent
+      // Otherwise for other platforms, its good to identify your requests
+      headers.putIfAbsent('User-Agent', () => userAgent);
+    }
 
     var body = _getParamsAsBody(params, sign: sign, authRequired: authRequired);
 
@@ -158,6 +166,20 @@ class LastFmApi {
 
   void loginWithSessionKey(String sessionKey) {
     this.sessionKey = sessionKey;
+  }
+
+  String getAuthUriWithCallbackUri(String callbackUri) {
+    return 'http://www.last.fm/api/auth?api_key=$apiKey&cb=$callbackUri';
+  }
+
+  Future<UserSession> loginFromWebToken(String token) async {
+    var res = await auth.getSession(token);
+    if (!res.isSuccess()) {
+      return null;
+    }
+
+    this.sessionKey = res.data.session.key;
+    return res.data.session;
   }
 
   String _getSignature(Map<String, String> params) {

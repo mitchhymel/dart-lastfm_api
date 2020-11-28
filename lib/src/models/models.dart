@@ -7,7 +7,7 @@ int _stringToInt(String number) => number == null ? null : number == "FIXME" ? 0
 String _stringFromInt(int number) => number?.toString();
 double _stringToDouble(String number) => number == null ? null : double.parse(number);
 String _stringFromDouble(double number) => number?.toString();
-bool _stringToBool(String b) => b == null ? null : b == "1" || b == "true";
+bool _stringToBool(String b) => b == null ? null : (b == "1" || b == "true");
 String _stringFromBool(bool b) => b.toString(); 
 
 int _intFromStringOrInt(dynamic x) => x == null ? null : x is String ? _stringToInt(x) : x is int ? x : null;
@@ -534,6 +534,25 @@ class Tag {
     this.streamable,
     this.wiki,
   });
+  Tag copyWith({
+    int count,
+    String name,
+    String url,
+    int total,
+    int reach,
+    String taggings,
+    String streamable,
+    Wiki wiki,
+  }) => Tag(
+    count: count ?? this.count,
+    name: name ?? this.name,
+    url: url ?? this.url,
+    total: total ?? this.total,
+    reach: reach ?? this.reach,
+    taggings: taggings ?? this.taggings,
+    streamable: streamable ?? this.streamable,
+    wiki: wiki ?? this.wiki,
+  );
   factory Tag.fromJson(Map<String, dynamic> json) => _$TagFromJson(json);
   Map<String, dynamic> toJson() => _$TagToJson(this);
   @override
